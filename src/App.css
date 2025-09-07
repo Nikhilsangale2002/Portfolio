@@ -48,12 +48,37 @@
 .exp-sub { margin: 0 0 10px; opacity: 0.8; }
 .exp-list { margin: 0; padding-left: 18px; }
 
+/* Mobile refinements */
+@media (max-width: 768px) {
+  #root { padding: 16px; }
+  .section { padding: 32px 0; }
+  .site-header { position: sticky; top: 0; padding: 10px 0; }
+  .brand { font-size: 18px; }
+  .nav { gap: 8px; flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a { padding: 8px 10px; white-space: nowrap; }
+  .hero p { font-size: 14px; }
+  .hero-actions { flex-direction: column; align-items: stretch; gap: 8px; }
+  .project-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .project-card { padding: 16px; }
+  .skill-groups { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .skill-chip { padding: 8px 12px; }
+}
+
 /* Resume */
 .resume-embed { border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
 
 /* Responsive */
 @media (max-width: 600px) {
-  .hero h1 { font-size: 36px; }
+  .hero h1 { font-size: 28px; }
+}
+
+/* Extra-small phones */
+@media (max-width: 380px) {
+  #root { padding: 12px; }
+  .brand { font-size: 16px; }
+  .btn { padding: 9px 12px; font-size: 14px; }
+  .typing { border-right-width: .08em; }
 }
 
 /* Typing animation */
