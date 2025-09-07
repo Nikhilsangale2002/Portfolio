@@ -87,6 +87,8 @@
   overflow: hidden; 
   border-right: .12em solid #8ea2ff; 
   white-space: nowrap; 
+  display: inline-block;
+  margin: 0 auto;
   animation: typing 3s steps(20, end), blink-caret .8s step-end infinite; 
 }
 
