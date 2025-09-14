@@ -5,7 +5,7 @@ const defaultProjects = [
     title: 'Portfolio Website',
     org: '',
     period: '',
-    link: '/',
+    link: 'https://nikhilsangale2002.github.io/Portfolio',
     bullets: [
       'Personal portfolio built with React + Vite and modern UI design.',
       'Responsive layout, glassmorphism cards, and smooth interactions.',

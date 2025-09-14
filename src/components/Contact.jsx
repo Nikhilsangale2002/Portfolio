@@ -6,7 +6,7 @@ const Contact = () => {
       <h2>Contact</h2>
       <p>
         Want to collaborate? Reach me at
-        {' '}<a href="mailto:nikhilsangale121@gamil.com">nikhilsangale121@gamil.com</a>
+        {' '}<a href="mailto:nikhilsangale121@gmail.com">nikhilsangale121@gmail.com</a>
       </p>
       <div className="socials">
         <a href="https://github.com/Nikhilsangale2002" aria-label="GitHub" className="icon-btn" target="_blank" rel="noreferrer" title="GitHub">
