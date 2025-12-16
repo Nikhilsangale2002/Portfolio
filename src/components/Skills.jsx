@@ -1,4 +1,5 @@
 import React from 'react'
+import ParticleRing from './ParticleRing'
 
 const groups = [
   {
@@ -88,8 +89,12 @@ const groups = [
 
 const Skills = () => {
   return (
-    <section id="skills" className="section">
-      <h2>Skills</h2>
+    <section id="skills" className="section section-3d">
+      <div className="section-3d-background">
+        <ParticleRing />
+      </div>
+      <div className="section-content">
+        <h2>Skills</h2>
       <div className="skill-groups">
         {groups.map((group) => (
           <div key={group.title} className="skill-group">
@@ -104,6 +109,7 @@ const Skills = () => {
             </ul>
           </div>
         ))}
+      </div>
       </div>
     </section>
   )

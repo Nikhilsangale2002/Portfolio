@@ -1,8 +1,12 @@
 import React from 'react'
+import Scene3D from './Scene3D'
 
 const Hero = () => {
   return (
     <section id="hero" className="section hero">
+      <div className="hero-3d-background">
+        <Scene3D />
+      </div>
       <div className="hero-container">
         <div className="hero-content">
           <h1 className="typing">Nikhil Sangale</h1>

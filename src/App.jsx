@@ -7,10 +7,12 @@ import Skills from './components/Skills'
 import Experience from './components/Experience'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import Background3D from './components/Background3D'
 
 function App() {
   return (
     <>
+      <Background3D />
       <Header />
       <main>
         <Hero />
