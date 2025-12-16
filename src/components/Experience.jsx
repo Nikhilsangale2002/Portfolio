@@ -6,13 +6,15 @@ const defaultExperience = [
     company: 'Reclaim • Remote, India',
     period: 'July 2025 – Present',
     points: [
-      'Build data‑driven web solutions and automation tools across frontend and backend.',
-      'Frontend: React.js apps with responsive UI and smooth API integrations.',
-      'Backend: Flask (Python) REST APIs with MySQL; MongoDB for unstructured data.',
-      'Web scraping & automation using BeautifulSoup/Spider with robust fallbacks and throttling.',
-      'Developed a Chrome Extension for fashion e‑commerce scraping with advanced DOM parsing.',
-      'Deploy and manage services on AWS EC2; containerize workflows with Docker.',
-      'Short: Shipping scalable, end‑to‑end solutions that connect UI, APIs, and data.'
+      'Architected and developed a full-stack e-commerce platform using microservices with Flask REST APIs (100+ endpoints), React.js frontend, MySQL database, and Redis caching, deployed in Docker containers.',
+      'Implemented a comprehensive authentication system supporting JWT tokens, Facebook/Google OAuth, and OTP-based verification with password recovery flows.',
+      'Designed and built an order management system with QR code-based tracking, automated status workflows, and real-time order updates.',
+      'Developed a gamification engine with a multi-tier reward system, referral tracking, and brand voting mechanisms, increasing user engagement by 40%.',
+      'Configured Nginx as a reverse proxy and API gateway handling CORS, SSL termination, and request routing across 6 microservices.',
+      'Integrated a monitoring service for real-time API metrics with async logging using threading, reducing response latency by 30%.',
+      'Built a Chrome extension for wishlist management with page scraping capabilities and seamless API integration.',
+      'Deployed production infrastructure on AWS using Docker Compose orchestration, custom domain configuration, and a zero-downtime deployment strategy.',
+      'Tech Stack: Python, Flask, React.js, MySQL, Redis, Docker, Nginx, Git, JWT, OAuth, REST APIs.'
     ]
   },
   {
