@@ -32,11 +32,14 @@
 }
 
 /* Hero */
-.hero { display: grid; place-items: center; text-align: center; min-height: 60vh; }
-.hero h1 { font-size: 48px; margin: 0 0 8px; }
-.hero p { margin: 0 0 16px; opacity: 0.9; }
-.hero-actions { display: flex; gap: 12px; justify-content: center; }
-/* avatar removed */
+.hero { display: grid; place-items: center; text-align: center; min-height: 75vh; padding: 48px 0; }
+.hero-container { display: flex; flex-direction: column; align-items: center; gap: 32px; max-width: 900px; }
+.hero-content { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.hero h1 { font-size: 52px; margin: 0; font-weight: 800; background: linear-gradient(135deg, #a5b4fc, #60a5fa, #646cff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero-title { font-size: 20px; font-weight: 600; margin: 0; background: linear-gradient(90deg, #e0e7ff, #bfdbfe); -webkit-background-clip: text; background-clip: text; color: transparent; opacity: 0.95; }
+.hero-description { margin: 0; opacity: 0.85; max-width: 600px; line-height: 1.6; font-size: 16px; }
+.hero-social { display: flex; gap: 14px; margin-top: 8px; }
+.hero-actions { display: flex; gap: 12px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
 
 /* Buttons */
 .btn { display: inline-block; padding: 10px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); color: inherit; backdrop-filter: blur(6px); box-shadow: 0 8px 24px rgba(0,0,0,0.25); transition: transform 180ms ease, box-shadow 200ms ease, border-color 200ms ease, background 200ms ease; }
@@ -84,8 +87,11 @@
   .nav { gap: 8px; flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
   .nav::-webkit-scrollbar { display: none; }
   .nav a { padding: 8px 10px; white-space: nowrap; }
-  .hero p { font-size: 14px; }
-  .hero-actions { flex-direction: column; align-items: stretch; gap: 8px; }
+  .hero { min-height: 60vh; padding: 32px 0; }
+  .hero h1 { font-size: 36px; }
+  .hero-title { font-size: 18px; }
+  .hero-description { font-size: 14px; padding: 0 16px; }
+  .hero-actions { flex-direction: row; align-items: center; gap: 8px; }
   .project-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
   .project-card { padding: 16px; }
   .skill-groups { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
@@ -97,7 +103,9 @@
 
 /* Responsive */
 @media (max-width: 600px) {
-  .hero h1 { font-size: 28px; }
+  .hero h1 { font-size: 32px; }
+  .hero-actions { flex-direction: column; width: 100%; max-width: 280px; }
+  .hero-actions .btn { width: 100%; text-align: center; }
 }
 
 /* Extra-small phones */
