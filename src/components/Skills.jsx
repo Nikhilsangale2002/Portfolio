@@ -7,7 +7,6 @@ const groups = [
     items: [
       { name: 'Python', icon: 'devicon-python-plain colored' },
       { name: 'JavaScript', icon: 'devicon-javascript-plain colored' },
-      { name: 'Java', icon: 'devicon-java-plain colored' },
       { name: 'HTML5', icon: 'devicon-html5-plain colored' },
       { name: 'CSS3', icon: 'devicon-css3-plain colored' }
     ]
@@ -16,15 +15,14 @@ const groups = [
     title: 'Frontend Development',
     items: [
       { name: 'React.js', icon: 'devicon-react-original colored' },
-      { name: 'Vite', icon: 'devicon-vitejs-plain colored' },
-      { name: 'Responsive Design', icon: 'devicon-css3-plain colored' }
+      { name: 'Next.js', icon: 'devicon-nextjs-plain' },
+      { name: 'Vite', icon: 'devicon-vitejs-plain colored' }
     ]
   },
   {
     title: 'Backend Development',
     items: [
       { name: 'Flask', icon: 'devicon-flask-original' },
-      { name: 'Spring Boot', icon: 'devicon-spring-plain colored' },
       { name: 'REST APIs', icon: 'devicon-openapi-plain colored' },
       { name: 'Microservices', icon: 'devicon-kubernetes-plain colored' },
       { name: 'Streamlit', icon: 'devicon-streamlit-plain colored' }
@@ -35,8 +33,7 @@ const groups = [
     items: [
       { name: 'MySQL', icon: 'devicon-mysql-plain colored' },
       { name: 'MongoDB', icon: 'devicon-mongodb-plain colored' },
-      { name: 'Redis', icon: 'devicon-redis-plain colored' },
-      { name: 'H2 Database', icon: 'devicon-spring-plain colored' }
+      { name: 'Redis', icon: 'devicon-redis-plain colored' }
     ]
   },
   {
@@ -61,14 +58,15 @@ const groups = [
     items: [
       { name: 'JWT', icon: 'devicon-spring-plain colored' },
       { name: 'OAuth 2.0', icon: 'devicon-google-plain colored' },
-      { name: 'Spring Security', icon: 'devicon-spring-plain colored' }
+      { name: 'bcrypt', icon: 'devicon-nodejs-plain colored' }
     ]
   },
   {
     title: 'AI & Machine Learning',
     items: [
       { name: 'Generative AI', icon: 'devicon-google-plain colored' },
-      { name: 'Gemini Pro API', icon: 'devicon-google-plain colored' }
+      { name: 'Gemini Pro API', icon: 'devicon-google-plain colored' },
+      { name: 'OpenAI API', icon: 'devicon-openai-plain colored' }
     ]
   },
   {
@@ -95,7 +93,7 @@ const Skills = () => {
       </div>
       <div className="section-content">
         <h2>Skills</h2>
-      <div className="skill-groups">
+      <div className="skill-groups stagger-animation">
         {groups.map((group) => (
           <div key={group.title} className="skill-group">
             <h3 className="skill-title">{group.title}</h3>

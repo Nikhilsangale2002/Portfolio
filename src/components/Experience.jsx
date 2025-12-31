@@ -23,9 +23,9 @@ const defaultExperience = [
     period: 'January 2025 – July 2025',
     points: [
       'RSL Solution is an IT firm that designs, architects, and develops software products for web, mobile, and branding purposes.',
-      'Developed and maintained full-stack web applications using Python, Java, React.js, and Spring Boot.',
+      'Developed and maintained full-stack web applications using Python, React.js, and Flask.',
       'Built an AI-powered application with 90% accuracy for analyzing and matching resumes using GenAI, Streamlit, and MySQL.',
-      'Created and integrated RESTful APIs; used Spring JPA with H2 and MySQL for efficient data handling.',
+      'Created and integrated RESTful APIs with MySQL for efficient data handling.',
       'Designed responsive and interactive user interfaces with React.js and JavaScript to enhance user experience.',
       'Collaborated in Agile teams using Jira, managed version control with Git/GitHub, and tested APIs via Postman.'
     ]
@@ -48,7 +48,7 @@ const Experience = ({ items = defaultExperience }) => {
   return (
     <section id="experience" className="section">
       <h2>Experience</h2>
-      <div className="timeline">
+      <div className="timeline stagger-animation">
         {items.map((exp, idx) => (
           <article key={idx} className="exp-card">
             <div className="exp-meta">

@@ -1,9 +1,21 @@
 /* Layout */
-#root { max-width: 1100px; margin: 0 auto; padding: 24px; position: relative; z-index: 1; }
+#root { position: relative; z-index: 1; }
+.scroll-container { 
+  flex: 1; 
+  overflow-y: auto; 
+  overflow-x: hidden; 
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+.scroll-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+.scroll-content { max-width: 1100px; margin: 0 auto; padding: 24px; }
 .section { padding: 64px 0; }
 
 /* Header */
-.site-header { display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: rgba(12,12,18,0.45); backdrop-filter: blur(14px); padding: 12px 0; z-index: 10; border-bottom: 1px solid rgba(255,255,255,0.06); box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
+.site-header { display: flex; justify-content: space-between; align-items: center; position: relative; background: rgba(12,12,18,0.45); backdrop-filter: blur(14px); padding: 12px 24px; z-index: 10; border-bottom: 1px solid rgba(255,255,255,0.06); box-shadow: 0 8px 24px rgba(0,0,0,0.25); flex-shrink: 0; }
 .site-header::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: linear-gradient(90deg, rgba(100,108,255,0.0), rgba(100,108,255,0.6), rgba(11,109,191,0.0)); pointer-events: none; }
 .brand { font-weight: 800; font-size: 20px; background: linear-gradient(90deg, #a5b4fc, #60a5fa); -webkit-background-clip: text; background-clip: text; color: transparent; letter-spacing: 0.2px; }
 .nav { display: flex; gap: 16px; }
@@ -93,9 +105,9 @@
 
 /* Mobile refinements */
 @media (max-width: 768px) {
-  #root { padding: 16px; }
+  .scroll-content { padding: 16px; }
   .section { padding: 32px 0; }
-  .site-header { position: sticky; top: 0; padding: 10px 0; }
+  .site-header { padding: 10px 16px; }
   .brand { font-size: 18px; }
   .nav { gap: 8px; flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
   .nav::-webkit-scrollbar { display: none; }
@@ -149,3 +161,79 @@
   from, to { border-color: transparent }
   50% { border-color: #8ea2ff }
 }
+
+/* Scroll Animations */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-fade-in {
+  opacity: 0;
+  transition: opacity 0.8s ease-out;
+}
+
+.animate-fade-in.animate-in {
+  opacity: 1;
+}
+
+.animate-slide-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-slide-left.animate-in {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.animate-slide-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-slide-right.animate-in {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.animate-scale {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.animate-scale.animate-in {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.stagger-animation > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.stagger-animation.animate-in > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-animation.animate-in > *:nth-child(1) { transition-delay: 0.1s; }
+.stagger-animation.animate-in > *:nth-child(2) { transition-delay: 0.2s; }
+.stagger-animation.animate-in > *:nth-child(3) { transition-delay: 0.3s; }
+.stagger-animation.animate-in > *:nth-child(4) { transition-delay: 0.4s; }
+.stagger-animation.animate-in > *:nth-child(5) { transition-delay: 0.5s; }
+.stagger-animation.animate-in > *:nth-child(6) { transition-delay: 0.6s; }
+.stagger-animation.animate-in > *:nth-child(7) { transition-delay: 0.7s; }
+.stagger-animation.animate-in > *:nth-child(8) { transition-delay: 0.8s; }
+.stagger-animation.animate-in > *:nth-child(9) { transition-delay: 0.9s; }
+.stagger-animation.animate-in > *:nth-child(10) { transition-delay: 1s; }

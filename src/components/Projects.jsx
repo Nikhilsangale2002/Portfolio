@@ -2,14 +2,28 @@ import React from 'react'
 
 const defaultProjects = [
   {
+    title: 'HireLens – AI Recruitment Platform',
+    org: '',
+    period: '',
+    link: 'https://github.com/Nikhilsangale2002/Hirelens',
+    bullets: [
+      'Built a full-stack AI recruitment platform using Next.js and Flask, automating resume screening and candidate ranking with LLMs (Gemini/OpenAI).',
+      'Designed Docker-based microservices architecture with Nginx reverse proxy, Redis caching, and MySQL for scalable, production-ready deployment.',
+      'Implemented secure authentication with JWT + OAuth 2.0, bcrypt hashing, rate limiting, account lockout, and audit logging.',
+      'Optimized performance using Redis session storage and caching, reducing API latency for frequently accessed endpoints.'
+    ]
+  },
+  {
     title: 'Portfolio Website',
     org: '',
     period: '',
     link: 'https://nikhilsangale2002.github.io/Portfolio/',
     bullets: [
-      'Personal portfolio built with React + Vite and modern UI design.',
-      'Responsive layout, glassmorphism cards, and smooth interactions.',
-      'Real tech icons via Devicon; organized sections for About, Skills, Projects.'
+      'Personal portfolio built with React + Vite featuring modern glassmorphism design and 3D interactive background elements.',
+      'Implemented custom scroll animations with Intersection Observer API, including fade-in, slide, scale, and staggered effects for enhanced UX.',
+      'Created scroll-only content area with hidden scrollbar, keeping header fixed while content scrolls smoothly within viewport.',
+      'Responsive layout with mobile-optimized navigation, gradient text effects, and smooth transitions across all components.',
+      'Integrated Devicon for technology icons; organized sections for About, Skills, Projects, Experience, and Contact with animated cards.'
     ]
   },
   {
@@ -23,17 +37,6 @@ const defaultProjects = [
       'Implemented scoring to rank resumes by relevance for faster shortlisting.',
       'Parsed resumes across Excel, Word, and PDF for comprehensive extraction.'
     ]
-  },
-  {
-    title: 'Talkpal Chat Application',
-    org: 'Pimpri Chinchwad University',
-    period: 'February 2024 – May 2024',
-    bullets: [
-      'Real-time chat app in Java + Spring Boot with secure auth and registration.',
-      'RESTful APIs via Spring MVC/Security to manage sessions and messaging.',
-      'Spring JPA with MySQL and H2 for accounts, chat data, and logs.',
-      'Thorough API testing with Postman; clean, modular architecture.'
-    ]
   }
 ]
 
@@ -41,7 +44,7 @@ const Projects = ({ projects = defaultProjects }) => {
   return (
     <section id="projects" className="section">
       <h2>Projects</h2>
-      <div className="project-grid">
+      <div className="project-grid stagger-animation">
         {projects.map((p, idx) => (
           <article key={idx} className="project-card">
             <h3>{p.title}</h3>
