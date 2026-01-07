@@ -1,42 +1,58 @@
 import React from 'react'
-import Scene3D from './Scene3D'
-import { smoothScrollTo } from '../utils/smoothScroll'
 
 const Hero = () => {
-  const handleScrollClick = (e, targetId) => {
-    e.preventDefault()
-    smoothScrollTo(targetId)
-  }
-  
   return (
-    <section id="hero" className="section hero">
-      <div className="hero-3d-background">
-        <Scene3D />
+    <section id="home" className="hero">
+      <div className="hero-left">
+        <div className="hero-label">Software Developer</div>
+        <h1>
+          <span className="line">Hi, I'm</span>
+          <span className="line">Nikhil Sangale</span>
+        </h1>
+        <p className="hero-description">
+          Crafting scalable web applications and AI-powered solutions.
+          Specialized in Backend development , cloud deployment, and modern frontend frameworks.
+        </p>
+        <div className="hero-stats">
+          <div className="stat">
+            <div className="stat-number">5+</div>
+            <div className="stat-label">Projects</div>
+          </div>
+          <div className="stat">
+            <div className="stat-number">1+</div>
+            <div className="stat-label">Years Exp</div>
+          </div>
+
+        </div>
+        <div className="hero-buttons">
+          <a href="#projects" className="btn btn-primary">View Projects</a>
+          <a href="#contact" className="btn btn-secondary">Get In Touch</a>
+        </div>
       </div>
-      <div className="hero-container">
-        <div className="hero-content">
-          <h1 className="typing">Nikhil Sangale</h1>
-          <p className="hero-title">Full-Stack Developer & AI Enthusiast</p>
-          <p className="hero-description">
-            Crafting scalable web applications and AI-powered solutions.<br />
-            Specialized in Backend development , cloud deployment, and modern frontend frameworks.
-          </p>
-          <div className="hero-social">
-            <a href="https://github.com/Nikhilsangale2002" target="_blank" rel="noreferrer" className="icon-btn" aria-label="GitHub">
-              <i className="devicon-github-original"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/nikhil-sangale-462465215/" target="_blank" rel="noreferrer" className="icon-btn" aria-label="LinkedIn">
-              <i className="devicon-linkedin-plain"></i>
-            </a>
+
+      <div className="hero-right">
+        <div className="floating-card">
+          <div className="card-icon">
+            <i className="devicon-react-original colored"></i>
           </div>
-          <div className="hero-actions">
-            <a href="#projects" className="btn primary" onClick={(e) => handleScrollClick(e, '#projects')}>View Projects</a>
-            <a href="#contact" className="btn" onClick={(e) => handleScrollClick(e, '#contact')}>Contact Me</a>
-            <a href="Nikhil_Sangale_Resume.pdf" className="btn" target="_blank" rel="noreferrer" download>
-              <i className="devicon-file-plain" style={{marginRight: '6px'}}></i>
-              Resume
-            </a>
+          <h3>Fast Performance</h3>
+          <p>Optimized code for lightning-fast load times</p>
+        </div>
+
+        <div className="floating-card">
+          <div className="card-icon">
+            <i className="devicon-figma-plain colored"></i>
           </div>
+          <h3>Modern Design</h3>
+          <p>Beautiful interfaces that users love</p>
+        </div>
+
+        <div className="floating-card">
+          <div className="card-icon">
+            <i className="devicon-docker-plain colored"></i>
+          </div>
+          <h3>Scalable Solutions</h3>
+          <p>Built to grow with your business</p>
         </div>
       </div>
     </section>

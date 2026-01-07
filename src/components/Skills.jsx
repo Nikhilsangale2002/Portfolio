@@ -1,113 +1,118 @@
-import React from 'react'
-import ParticleRing from './ParticleRing'
+import React, { useState } from 'react'
 
-const groups = [
-  {
-    title: 'Programming Languages',
-    items: [
-      { name: 'Python', icon: 'devicon-python-plain colored' },
-      { name: 'JavaScript', icon: 'devicon-javascript-plain colored' },
-      { name: 'HTML5', icon: 'devicon-html5-plain colored' },
-      { name: 'CSS3', icon: 'devicon-css3-plain colored' }
-    ]
-  },
-  {
-    title: 'Frontend Development',
-    items: [
-      { name: 'React.js', icon: 'devicon-react-original colored' },
-      { name: 'Next.js', icon: 'devicon-nextjs-plain' },
-      { name: 'Vite', icon: 'devicon-vitejs-plain colored' }
-    ]
-  },
-  {
-    title: 'Backend Development',
-    items: [
-      { name: 'Flask', icon: 'devicon-flask-original' },
-      { name: 'REST APIs', icon: 'devicon-openapi-plain colored' },
-      { name: 'Microservices', icon: 'devicon-kubernetes-plain colored' },
-      { name: 'Streamlit', icon: 'devicon-streamlit-plain colored' }
-    ]
-  },
-  {
-    title: 'Databases & Caching',
-    items: [
-      { name: 'MySQL', icon: 'devicon-mysql-plain colored' },
-      { name: 'MongoDB', icon: 'devicon-mongodb-plain colored' },
-      { name: 'Redis', icon: 'devicon-redis-plain colored' }
-    ]
-  },
-  {
-    title: 'DevOps & Cloud',
-    items: [
-      { name: 'Docker', icon: 'devicon-docker-plain colored' },
-      { name: 'AWS EC2', icon: 'devicon-amazonwebservices-plain colored' },
-      { name: 'Nginx', icon: 'devicon-nginx-original colored' },
-      { name: 'Linux', icon: 'devicon-linux-plain' }
-    ]
-  },
-  {
-    title: 'Version Control & Collaboration',
-    items: [
-      { name: 'Git', icon: 'devicon-git-plain colored' },
-      { name: 'GitHub', icon: 'devicon-github-original' },
-      { name: 'Bitbucket', icon: 'devicon-bitbucket-original colored' }
-    ]
-  },
-  {
-    title: 'Authentication & Security',
-    items: [
-      { name: 'JWT', icon: 'devicon-spring-plain colored' },
-      { name: 'OAuth 2.0', icon: 'devicon-google-plain colored' },
-      { name: 'bcrypt', icon: 'devicon-nodejs-plain colored' }
-    ]
-  },
-  {
-    title: 'AI & Machine Learning',
-    items: [
-      { name: 'Generative AI', icon: 'devicon-google-plain colored' },
-      { name: 'Gemini Pro API', icon: 'devicon-google-plain colored' },
-      { name: 'OpenAI API', icon: 'devicon-openai-plain colored' }
-    ]
-  },
-  {
-    title: 'Tools & Testing',
-    items: [
-      { name: 'Postman', icon: 'devicon-postman-plain colored' },
-      { name: 'Jira', icon: 'devicon-jira-plain colored' },
-      { name: 'VS Code', icon: 'devicon-vscode-plain colored' }
-    ]
-  },
-  {
-    title: 'Other Technologies',
-    items: [
-      { name: 'Chrome Extensions', icon: 'devicon-chrome-plain colored' }
-    ]
-  }
-]
+const skillsData = {
+  'All': [
+    { icon: 'devicon-javascript-plain colored', name: 'JavaScript', level: 'Expert' },
+    { icon: 'devicon-html5-plain colored', name: 'HTML5', level: 'Expert' },
+    { icon: 'devicon-css3-plain colored', name: 'CSS3', level: 'Expert' },
+    { icon: 'devicon-react-original colored', name: 'React', level: 'Expert' },
+    { icon: 'devicon-nextjs-line', name: 'Next.js', level: 'Advanced' },
+    { icon: 'devicon-redux-original colored', name: 'Redux', level: 'Advanced' },
+    { icon: 'devicon-tailwindcss-plain colored', name: 'Tailwind', level: 'Expert' },
+    { icon: 'devicon-nodejs-plain colored', name: 'Node.js', level: 'Expert' },
+    { icon: 'devicon-python-plain colored', name: 'Python', level: 'Advanced' },
+    { icon: 'devicon-flask-original', name: 'Flask', level: 'Advanced' },
+    { icon: 'devicon-mongodb-plain colored', name: 'MongoDB', level: 'Advanced' },
+    { icon: 'devicon-postgresql-plain colored', name: 'PostgreSQL', level: 'Advanced' },
+    { icon: 'devicon-mysql-plain colored', name: 'MySQL', level: 'Advanced' },
+    { icon: 'devicon-redis-plain colored', name: 'Redis', level: 'Intermediate' },
+    { icon: 'devicon-docker-plain colored', name: 'Docker', level: 'Intermediate' },
+    { icon: 'devicon-nginx-original colored', name: 'Nginx', level: 'Intermediate' },
+    { icon: 'devicon-linux-plain', name: 'Linux', level: 'Advanced' },
+    { icon: 'devicon-amazonwebservices-plain-wordmark colored', name: 'AWS', level: 'Advanced' },
+    { icon: 'devicon-git-plain colored', name: 'Git', level: 'Expert' },
+    { icon: 'devicon-github-original', name: 'GitHub', level: 'Expert' },
+    { icon: 'devicon-bitbucket-original colored', name: 'Bitbucket', level: 'Advanced' },
+    { icon: 'devicon-chrome-plain colored', name: 'Chrome Ext', level: 'Advanced' },
+    { icon: 'devicon-jira-plain colored', name: 'Jira', level: 'Advanced' },
+    { icon: 'devicon-postman-plain colored', name: 'Postman', level: 'Advanced' },
+    { icon: 'devicon-python-plain colored', name: 'Gen AI', level: 'Advanced' }
+  ],
+  'Frontend': [
+    { icon: 'devicon-javascript-plain colored', name: 'JavaScript', level: 'Expert' },
+    { icon: 'devicon-html5-plain colored', name: 'HTML5', level: 'Expert' },
+    { icon: 'devicon-css3-plain colored', name: 'CSS3', level: 'Expert' },
+    { icon: 'devicon-react-original colored', name: 'React', level: 'Expert' },
+    { icon: 'devicon-nextjs-line', name: 'Next.js', level: 'Advanced' },
+    { icon: 'devicon-redux-original colored', name: 'Redux', level: 'Advanced' },
+    { icon: 'devicon-tailwindcss-plain colored', name: 'Tailwind', level: 'Expert' },
+  ],
+  'Backend': [
+    { icon: 'devicon-nodejs-plain colored', name: 'Node.js', level: 'Expert' },
+    { icon: 'devicon-python-plain colored', name: 'Python', level: 'Advanced' },
+    { icon: 'devicon-flask-original', name: 'Flask', level: 'Advanced' },
+  ],
+  'Database': [
+    { icon: 'devicon-mongodb-plain colored', name: 'MongoDB', level: 'Advanced' },
+    { icon: 'devicon-postgresql-plain colored', name: 'PostgreSQL', level: 'Advanced' },
+    { icon: 'devicon-mysql-plain colored', name: 'MySQL', level: 'Advanced' },
+    { icon: 'devicon-redis-plain colored', name: 'Redis', level: 'Intermediate' },
+  ],
+  'DevOps': [
+    { icon: 'devicon-docker-plain colored', name: 'Docker', level: 'Intermediate' },
+    { icon: 'devicon-nginx-original colored', name: 'Nginx', level: 'Intermediate' },
+    { icon: 'devicon-linux-plain', name: 'Linux', level: 'Advanced' },
+    { icon: 'devicon-amazonwebservices-plain-wordmark colored', name: 'AWS', level: 'Advanced' },
+    { icon: 'devicon-git-plain colored', name: 'Git', level: 'Expert' },
+    { icon: 'devicon-github-original', name: 'GitHub', level: 'Expert' },
+  ],
+  'Tools': [
+    { icon: 'devicon-bitbucket-original colored', name: 'Bitbucket', level: 'Advanced' },
+    { icon: 'devicon-chrome-plain colored', name: 'Chrome Ext', level: 'Advanced' },
+    { icon: 'devicon-jira-plain colored', name: 'Jira', level: 'Advanced' },
+    { icon: 'devicon-postman-plain colored', name: 'Postman', level: 'Advanced' },
+    { icon: 'devicon-python-plain colored', name: 'Gen AI', level: 'Advanced' }
+  ]
+}
 
 const Skills = () => {
+  const [activeTab, setActiveTab] = useState('All')
+
+  const handleTabClick = (tabName) => {
+    console.log('Tab clicked:', tabName)
+    setActiveTab(tabName)
+  }
+
   return (
-    <section id="skills" className="section section-3d">
-      <div className="section-3d-background">
-        <ParticleRing />
+    <section id="skills" className="section">
+      <div className="section-shapes">
+        <div className="shape shape-square section-shape-4"></div>
+        <div className="shape shape-circle section-shape-5"></div>
+        <div className="shape shape-triangle section-shape-6"></div>
+        <div className="shape shape-ring section-shape-16"></div>
+        <div className="shape shape-square section-shape-17"></div>
+        <div className="shape shape-circle section-shape-18"></div>
       </div>
-      <div className="section-content">
-        <h2>Skills</h2>
-      <div className="skill-groups stagger-animation">
-        {groups.map((group) => (
-          <div key={group.title} className="skill-group">
-            <h3 className="skill-title">{group.title}</h3>
-            <ul className="skills-list">
-              {group.items.map((item) => (
-                <li key={item.name} className="skill-chip">
-                  <i className={`skill-icon ${item.icon}`} aria-hidden></i>
-                  <span>{item.name}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+      <div className="section-header">
+        <h2>Technical Skills</h2>
+        <p>Technologies I work with</p>
+      </div>
+
+      <div className="skills-tabs">
+        {Object.keys(skillsData).map((tab) => (
+          <button
+            key={tab}
+            className={`skills-tab ${activeTab === tab ? 'active' : ''}`}
+            onMouseDown={(e) => {
+              e.stopPropagation()
+              e.preventDefault()
+              handleTabClick(tab)
+            }}
+            type="button"
+          >
+            {tab}
+          </button>
         ))}
       </div>
+
+      <div className="skills-grid">
+        {skillsData[activeTab].map((skill, idx) => (
+          <div key={idx} className="skill-item">
+            <i className={`${skill.icon} skill-icon`}></i>
+            <h4>{skill.name}</h4>
+            <p>{skill.level}</p>
+          </div>
+        ))}
       </div>
     </section>
   )

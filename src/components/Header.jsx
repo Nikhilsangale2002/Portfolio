@@ -1,81 +1,50 @@
 import React, { useState, useEffect } from 'react'
-import { smoothScrollTo } from '../utils/smoothScroll'
 
 const Header = () => {
-  const [open, setOpen] = useState(false)
-  
-  // Handle smooth scroll on navigation click
-  const handleNavClick = (e, href) => {
-    e.preventDefault()
-    setOpen(false)
-    
-    // Small delay for mobile menu close animation
-    setTimeout(() => {
-      smoothScrollTo(href)
-    }, 100)
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen)
   }
-  
-  // Close menu when clicking outside on mobile
+
+  const closeMenu = () => {
+    setMenuOpen(false)
+  }
+
   useEffect(() => {
-    if (!open) return
-    
     const handleClickOutside = (e) => {
-      if (!e.target.closest('.site-header')) {
-        setOpen(false)
+      if (menuOpen && !e.target.closest('nav')) {
+        closeMenu()
       }
     }
-    
-    document.addEventListener('click', handleClickOutside)
-    return () => document.removeEventListener('click', handleClickOutside)
-  }, [open])
-  
-  // Close menu on escape key
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === 'Escape') setOpen(false)
+
+    if (menuOpen) {
+      document.addEventListener('click', handleClickOutside)
     }
-    
-    document.addEventListener('keydown', handleEscape)
-    return () => document.removeEventListener('keydown', handleEscape)
-  }, [])
-  
-  // Prevent body scroll when menu is open on mobile
-  useEffect(() => {
-    if (open && window.innerWidth <= 820) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
-    }
-    
+
     return () => {
-      document.body.style.overflow = ''
+      document.removeEventListener('click', handleClickOutside)
     }
-  }, [open])
-  
+  }, [menuOpen])
+
   return (
-    <header className="site-header">
-      <a href="#hero" className="brand" onClick={(e) => handleNavClick(e, '#hero')}>Nikhil Sangale</a>
-      <button 
-        className={`mobile-toggle ${open ? 'open' : ''}`} 
-        aria-label="Toggle navigation" 
-        aria-expanded={open} 
-        onClick={(e) => {
-          e.stopPropagation()
-          setOpen(!open)
-        }}
-      >
-        <span />
-        <span />
-        <span />
+    <nav>
+      <div className="logo">Nikhil Sangale</div>
+      
+      <button className="hamburger" onClick={toggleMenu} aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
-      <nav className={`nav ${open ? 'open' : ''}`}>
-        <a href="#about" onClick={(e) => handleNavClick(e, '#about')}>About</a>
-        <a href="#projects" onClick={(e) => handleNavClick(e, '#projects')}>Projects</a>
-        <a href="#skills" onClick={(e) => handleNavClick(e, '#skills')}>Skills</a>
-        <a href="#experience" onClick={(e) => handleNavClick(e, '#experience')}>Experience</a>
-        <a href="#contact" onClick={(e) => handleNavClick(e, '#contact')}>Contact</a>
-      </nav>
-    </header>
+
+      <ul className={`nav-menu ${menuOpen ? 'active' : ''}`}>
+        <li><a href="#home" onClick={closeMenu}>Home</a></li>
+        <li><a href="#projects" onClick={closeMenu}>Projects</a></li>
+        <li><a href="#skills" onClick={closeMenu}>Skills</a></li>
+        <li><a href="#experience" onClick={closeMenu}>Experience</a></li>
+        <li><a href="#contact" onClick={closeMenu}>Contact</a></li>
+      </ul>
+    </nav>
   )
 }
 

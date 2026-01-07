@@ -1,69 +1,68 @@
 import React from 'react'
 
-const defaultProjects = [
+const projectsData = [
   {
+    number: '01',
     title: 'HireLens – AI Recruitment Platform',
-    org: '',
-    period: '',
+    description: 'Full-stack AI recruitment platform using Next.js and Flask, automating resume screening with LLMs. Docker-based microservices with Nginx, Redis, and MySQL.',
+    tags: ['Next.js', 'Flask', 'Docker', 'MySQL', 'Redis', 'AI'],
     link: 'https://github.com/Nikhilsangale2002/Hirelens',
-    bullets: [
-      'Built a full-stack AI recruitment platform using Next.js and Flask, automating resume screening and candidate ranking with LLMs (Gemini/OpenAI).',
-      'Designed Docker-based microservices architecture with Nginx reverse proxy, Redis caching, and MySQL for scalable, production-ready deployment.',
-      'Implemented secure authentication with JWT + OAuth 2.0, bcrypt hashing, rate limiting, account lockout, and audit logging.',
-      'Optimized performance using Redis session storage and caching, reducing API latency for frequently accessed endpoints.'
-    ]
+    image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&auto=format&fit=crop&q=80&ixlib=rb-4.0.3'
   },
   {
+    number: '02',
     title: 'Portfolio Website',
-    org: '',
-    period: '',
+    description: 'Personal portfolio built with React + Vite featuring modern glassmorphism design, 3D interactive elements, and custom scroll animations.',
+    tags: ['React', 'Vite', 'Three.js', 'CSS'],
     link: 'https://nikhilsangale2002.github.io/Portfolio/',
-    bullets: [
-      'Personal portfolio built with React + Vite featuring modern glassmorphism design and 3D interactive background elements.',
-      'Implemented custom scroll animations with Intersection Observer API, including fade-in, slide, scale, and staggered effects for enhanced UX.',
-      'Created scroll-only content area with hidden scrollbar, keeping header fixed while content scrolls smoothly within viewport.',
-      'Responsive layout with mobile-optimized navigation, gradient text effects, and smooth transitions across all components.',
-      'Integrated Devicon for technology icons; organized sections for About, Skills, Projects, Experience, and Contact with animated cards.'
-    ]
+    image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&auto=format&fit=crop&q=80&ixlib=rb-4.0.3'
   },
   {
+    number: '03',
     title: 'Resume ATS System',
-    org: 'RSL Solution',
-    period: 'March 2025 – April 2025',
+    description: 'AI-powered ATS using Python, Streamlit and Generative AI (Gemini Pro API) with ~90% accuracy for resume analysis and JD matching.',
+    tags: ['Python', 'Streamlit', 'Gemini AI', 'MySQL'],
     link: 'https://github.com/Nikhilsangale2002/Resume_ATS_System',
-    bullets: [
-      'Built an ATS using Python, Streamlit and Generative AI (Gemini Pro API).',
-      'Engineered AI logic to extract key info and match to JDs with ~90% accuracy.',
-      'Implemented scoring to rank resumes by relevance for faster shortlisting.',
-      'Parsed resumes across Excel, Word, and PDF for comprehensive extraction.'
-    ]
+    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&auto=format&fit=crop&q=80&ixlib=rb-4.0.3'
   }
 ]
 
-const Projects = ({ projects = defaultProjects }) => {
+const Projects = () => {
   return (
     <section id="projects" className="section">
-      <h2>Projects</h2>
-      <div className="project-grid stagger-animation">
-        {projects.map((p, idx) => (
-          <article key={idx} className="project-card">
-            <h3>{p.title}</h3>
-            {(p.org || p.period) && (
-              <p style={{ marginTop: 4, opacity: 0.85 }}>{[p.org, p.period].filter(Boolean).join(' • ')}</p>
-            )}
-            {p.bullets ? (
-              <ul style={{ margin: '10px 0 0 16px' }}>
-                {p.bullets.map((b, i) => (
-                  <li key={i}>{b}</li>
+      <div className="section-shapes">
+        <div className="shape shape-circle section-shape-1"></div>
+        <div className="shape shape-square section-shape-2"></div>
+        <div className="shape shape-ring section-shape-3"></div>
+        <div className="shape shape-triangle section-shape-13"></div>
+        <div className="shape shape-circle section-shape-14"></div>
+        <div className="shape shape-square section-shape-15"></div>
+      </div>
+      <div className="section-header">
+        <h2>Featured Projects</h2>
+        <p>Showcase of my latest work</p>
+      </div>
+
+      <div className="projects-grid">
+        {projectsData.map((project, idx) => (
+          <div key={idx} className="project-card" onClick={() => project.link && window.open(project.link, '_blank')} style={{ cursor: project.link ? 'pointer' : 'default' }}>
+            <div className="project-image" style={{ backgroundImage: `url(${project.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
+            <div className="project-content">
+              <div className="project-number">{project.number}</div>
+              <h3>{project.title}</h3>
+              <p>{project.description}</p>
+              <div className="project-tags">
+                {project.tags.map((tag, i) => (
+                  <span key={i} className="tag">{tag}</span>
                 ))}
-              </ul>
-            ) : (
-              <p>{p.description}</p>
-            )}
-            {p.link && (
-              <a className="btn small" href={p.link} target="_blank" rel="noreferrer" style={{ marginTop: 12, display: 'inline-block' }}>View</a>
-            )}
-          </article>
+              </div>
+              {project.link && (
+                <a href={project.link} target="_blank" rel="noreferrer" className="project-link" onClick={(e) => e.stopPropagation()}>
+                  View Project →
+                </a>
+              )}
+            </div>
+          </div>
         ))}
       </div>
     </section>
