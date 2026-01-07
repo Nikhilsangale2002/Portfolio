@@ -1,7 +1,13 @@
 import React from 'react'
 import Scene3D from './Scene3D'
+import { smoothScrollTo } from '../utils/smoothScroll'
 
 const Hero = () => {
+  const handleScrollClick = (e, targetId) => {
+    e.preventDefault()
+    smoothScrollTo(targetId)
+  }
+  
   return (
     <section id="hero" className="section hero">
       <div className="hero-3d-background">
@@ -24,8 +30,8 @@ const Hero = () => {
             </a>
           </div>
           <div className="hero-actions">
-            <a href="#projects" className="btn primary">View Projects</a>
-            <a href="#contact" className="btn">Contact Me</a>
+            <a href="#projects" className="btn primary" onClick={(e) => handleScrollClick(e, '#projects')}>View Projects</a>
+            <a href="#contact" className="btn" onClick={(e) => handleScrollClick(e, '#contact')}>Contact Me</a>
             <a href="Nikhil_Sangale_Resume.pdf" className="btn" target="_blank" rel="noreferrer" download>
               <i className="devicon-file-plain" style={{marginRight: '6px'}}></i>
               Resume

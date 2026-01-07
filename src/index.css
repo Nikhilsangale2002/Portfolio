@@ -1,9 +1,73 @@
-:root { color-scheme: dark; }
-* { box-sizing: border-box; }
-html, body { height: 100%; margin: 0; overflow: hidden; }
-#root { height: 100%; display: flex; flex-direction: column; }
-body { font-family: system-ui, Avenir, Helvetica, Arial, sans-serif; color: rgba(255,255,255,0.92); background: radial-gradient(1200px 600px at 10% -10%, #1e2154 0%, transparent 60%), radial-gradient(900px 500px at 90% 10%, #0b6dbf 0%, transparent 60%), #0b0b10; }
-img { max-width: 100%; display: block; }
- a { color: #a8b4ff; text-decoration: none; }
- a:hover { text-decoration: underline; }
+:root { 
+  color-scheme: dark; 
+  /* Mobile viewport optimization */
+  -webkit-tap-highlight-color: rgba(100, 108, 255, 0.1);
+}
+
+* { 
+  box-sizing: border-box; 
+  /* Better touch scrolling on iOS */
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body { 
+  height: 100%; 
+  margin: 0; 
+  overflow: hidden;
+  /* Prevent pull-to-refresh on mobile */
+  overscroll-behavior-y: none;
+  /* Smooth font rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Fix iOS viewport height issue */
+  position: fixed;
+  width: 100%;
+}
+
+#root { 
+  height: 100%; 
+  display: flex; 
+  flex-direction: column;
+  /* Hardware acceleration */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+body { 
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif; 
+  color: rgba(255,255,255,0.92); 
+  background: radial-gradient(1200px 600px at 10% -10%, #1e2154 0%, transparent 60%), radial-gradient(900px 500px at 90% 10%, #0b6dbf 0%, transparent 60%), #0b0b10;
+  /* Better touch handling */
+  touch-action: pan-y pinch-zoom;
+}
+
+img { 
+  max-width: 100%; 
+  display: block;
+  /* Prevent drag on touch devices */
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+a { 
+  color: #a8b4ff; 
+  text-decoration: none;
+  /* Better tap targets */
+  -webkit-tap-highlight-color: rgba(100, 108, 255, 0.15);
+}
+
+a:hover { text-decoration: underline; }
+
 h1, h2, h3 { line-height: 1.2; }
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -9,9 +9,11 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Background3D from './components/Background3D'
 import { useScrollAnimation } from './hooks/useScrollAnimation'
+import { usePerformanceOptimization } from './hooks/usePerformanceOptimization'
 
 function App() {
   useScrollAnimation()
+  usePerformanceOptimization()
 
   return (
     <>
