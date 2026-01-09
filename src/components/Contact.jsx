@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +8,8 @@ const Contact = () => {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [statusMessage, setStatusMessage] = useState({ type: '', text: '' })
+  const sectionRef = useRef(null)
+  const formRef = useRef(null)
 
   useEffect(() => {
     if (statusMessage.text) {
@@ -18,6 +20,37 @@ const Contact = () => {
       return () => clearTimeout(timer)
     }
   }, [statusMessage])
+
+  useEffect(() => {
+    const section = sectionRef.current
+    const form = formRef.current
+    if (!section) return
+
+    const handleScroll = () => {
+      const rect = section.getBoundingClientRect()
+      const scrollProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)))
+      
+      if (form) {
+        const offset = (1 - scrollProgress) * 60
+        form.style.transform = `translateY(${offset}px) scale(${0.95 + scrollProgress * 0.05})`
+        form.style.opacity = '1'
+      }
+    }
+
+    // Touch support for mobile
+    const handleTouchMove = () => {
+      handleScroll()
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('touchmove', handleTouchMove, { passive: true })
+    handleScroll()
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('touchmove', handleTouchMove)
+    }
+  }, [])
 
   const handleChange = (e) => {
     setFormData({
@@ -65,7 +98,7 @@ const Contact = () => {
   }
 
   return (
-    <section id="contact" className="section">
+    <section id="contact" className="section" ref={sectionRef}>
       <div className="section-shapes">
         <div className="shape shape-circle section-shape-10"></div>
         <div className="shape shape-triangle section-shape-11"></div>
@@ -79,7 +112,7 @@ const Contact = () => {
         <p>Let's discuss your next project</p>
       </div>
 
-      <form className="contact-form" onSubmit={handleSubmit}>
+      <form className="contact-form" ref={formRef} onSubmit={handleSubmit}>
         {statusMessage.text && (
           <div className={`status-message ${statusMessage.type}`}>
             {statusMessage.text}

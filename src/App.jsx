@@ -15,81 +15,7 @@ function App() {
   usePerformanceOptimization()
   
   useEffect(() => {
-    // Custom Cursor
-    const cursor = document.createElement('div')
-    const cursorFollower = document.createElement('div')
-    cursor.className = 'cursor'
-    cursorFollower.className = 'cursor-follower'
-    document.body.appendChild(cursor)
-    document.body.appendChild(cursorFollower)
-
-    let mouseX = 0, mouseY = 0
-    let followerX = 0, followerY = 0
-
-    const moveCursor = (e) => {
-      mouseX = e.clientX
-      mouseY = e.clientY
-      cursor.style.left = `${mouseX}px`
-      cursor.style.top = `${mouseY}px`
-      
-      // Keep rotation for card hover
-      if (!cursor.classList.contains('hover-card')) {
-        cursor.style.transform = `translate(-50%, -50%)`
-      }
-    }
-
-    const moveFollower = () => {
-      followerX += (mouseX - followerX) * 0.1
-      followerY += (mouseY - followerY) * 0.1
-      cursorFollower.style.left = `${followerX}px`
-      cursorFollower.style.top = `${followerY}px`
-      cursorFollower.style.transform = `translate(-50%, -50%)`
-      requestAnimationFrame(moveFollower)
-    }
-
-    const handleHoverLink = () => {
-      cursor.className = 'cursor hover-link'
-      cursorFollower.className = 'cursor-follower hover-link'
-    }
-
-    const handleHoverCard = () => {
-      cursor.className = 'cursor hover-card'
-      cursorFollower.className = 'cursor-follower hover-card'
-    }
-
-    const handleHoverInput = () => {
-      cursor.className = 'cursor hover-input'
-      cursorFollower.className = 'cursor-follower hover-input'
-    }
-
-    const handleLeave = () => {
-      cursor.className = 'cursor'
-      cursorFollower.className = 'cursor-follower'
-    }
-
-    document.addEventListener('mousemove', moveCursor)
-    moveFollower()
-
-    // Add hover effects to different interactive elements
-    const links = document.querySelectorAll('a, button')
-    links.forEach(el => {
-      el.addEventListener('mouseenter', handleHoverLink)
-      el.addEventListener('mouseleave', handleLeave)
-    })
-
-    const cards = document.querySelectorAll('.project-card, .skill-item, .experience-card, .floating-card')
-    cards.forEach(el => {
-      el.addEventListener('mouseenter', handleHoverCard)
-      el.addEventListener('mouseleave', handleLeave)
-    })
-
-    const inputs = document.querySelectorAll('input, textarea')
-    inputs.forEach(el => {
-      el.addEventListener('mouseenter', handleHoverInput)
-      el.addEventListener('mouseleave', handleLeave)
-    })
-
-    // Smooth scroll handler - let CSS handle smooth scroll and padding
+    // Smooth scroll handler
     const handleClick = (e) => {
       // Ignore clicks on buttons or elements with button parent
       if (e.target.closest('button')) {
@@ -109,7 +35,6 @@ function App() {
         
         const section = document.querySelector(href)
         if (section) {
-          // Use scrollIntoView instead of window.scrollTo
           section.scrollIntoView({ behavior: 'smooth', block: 'start' })
         }
       }
@@ -133,10 +58,7 @@ function App() {
     elements.forEach(el => observer.observe(el))
     
     return () => {
-      document.removeEventListener('mousemove', moveCursor)
       document.removeEventListener('click', handleClick, true)
-      cursor.remove()
-      cursorFollower.remove()
       observer.disconnect()
     }
   }, [])

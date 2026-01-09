@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 
 const projectsData = [
   {
@@ -28,8 +28,51 @@ const projectsData = [
 ]
 
 const Projects = () => {
+  const sectionRef = useRef(null)
+  const cardsRef = useRef([])
+
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+
+    const handleScroll = () => {
+      const rect = section.getBoundingClientRect()
+      const scrollProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)))
+      
+      cardsRef.current.forEach((card, index) => {
+        if (card) {
+          const speed = 0.3 + (index * 0.1)
+          const offset = (1 - scrollProgress) * 100 * speed
+          card.style.transform = `translateY(${offset}px) rotateX(${offset * 0.1}deg)`
+          card.style.opacity = '1'
+        }
+      })
+    }
+
+    // Touch support for mobile
+    let touchStartY = 0
+    const handleTouchStart = (e) => {
+      touchStartY = e.touches[0].clientY
+    }
+
+    const handleTouchMove = (e) => {
+      handleScroll()
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('touchstart', handleTouchStart, { passive: true })
+    window.addEventListener('touchmove', handleTouchMove, { passive: true })
+    handleScroll()
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('touchstart', handleTouchStart)
+      window.removeEventListener('touchmove', handleTouchMove)
+    }
+  }, [])
+
   return (
-    <section id="projects" className="section">
+    <section id="projects" className="section" ref={sectionRef}>
       <div className="section-shapes">
         <div className="shape shape-circle section-shape-1"></div>
         <div className="shape shape-square section-shape-2"></div>
@@ -45,7 +88,7 @@ const Projects = () => {
 
       <div className="projects-grid">
         {projectsData.map((project, idx) => (
-          <div key={idx} className="project-card" onClick={() => project.link && window.open(project.link, '_blank')} style={{ cursor: project.link ? 'pointer' : 'default' }}>
+          <div key={idx} className="project-card" ref={el => cardsRef.current[idx] = el} onClick={() => project.link && window.open(project.link, '_blank')} style={{ cursor: project.link ? 'pointer' : 'default' }}>
             <div className="project-image" style={{ backgroundImage: `url(${project.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
             <div className="project-content">
               <div className="project-number">{project.number}</div>

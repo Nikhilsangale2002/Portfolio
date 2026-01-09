@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 
 const experienceData = [
@@ -87,6 +87,42 @@ const experienceData = [
 const Experience = () => {
   const [selectedExp, setSelectedExp] = useState(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const sectionRef = useRef(null)
+  const cardsRef = useRef([])
+
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+
+    const handleScroll = () => {
+      const rect = section.getBoundingClientRect()
+      const scrollProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)))
+      
+      cardsRef.current.forEach((card, index) => {
+        if (card) {
+          const speed = 0.25 + (index * 0.1)
+          const offset = (1 - scrollProgress) * 90 * speed
+          const rotation = (1 - scrollProgress) * 5 * ((index % 2) ? 1 : -1)
+          card.style.transform = `translateX(${((index % 2) ? 1 : -1) * offset * 0.5}px) translateY(${offset}px) rotateZ(${rotation}deg)`
+          card.style.opacity = '1'
+        }
+      })
+    }
+
+    // Touch support for mobile
+    const handleTouchMove = () => {
+      handleScroll()
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('touchmove', handleTouchMove, { passive: true })
+    handleScroll()
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('touchmove', handleTouchMove)
+    }
+  }, [])
 
   const openModal = (exp, e) => {
     if (e) {
@@ -95,7 +131,10 @@ const Experience = () => {
     }
     setSelectedExp(exp)
     setIsModalOpen(true)
-    console.log('Opening modal for:', exp.company) // Debug log
+    // Prevent body scroll when modal opens
+    document.body.style.overflow = 'hidden'
+    document.body.style.position = 'fixed'
+    document.body.style.width = '100%'
   }
 
   const closeModal = (e) => {
@@ -104,12 +143,16 @@ const Experience = () => {
       e.preventDefault()
     }
     setIsModalOpen(false)
+    // Re-enable body scroll
+    document.body.style.overflow = ''
+    document.body.style.position = ''
+    document.body.style.width = ''
     setTimeout(() => setSelectedExp(null), 300)
   }
 
   return (
     <>
-      <section id="experience" className="section">
+      <section id="experience" className="section" ref={sectionRef}>
         <div className="section-shapes">
           <div className="shape shape-ring section-shape-7"></div>
           <div className="shape shape-square section-shape-8"></div>
@@ -128,6 +171,7 @@ const Experience = () => {
             <div 
               key={idx} 
               className="experience-card"
+              ref={el => cardsRef.current[idx] = el}
               onClick={(e) => openModal(exp, e)}
               style={{ cursor: 'pointer' }}
             >

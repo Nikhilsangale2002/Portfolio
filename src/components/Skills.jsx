@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 const skillsData = {
   'All': [
@@ -67,6 +67,42 @@ const skillsData = {
 
 const Skills = () => {
   const [activeTab, setActiveTab] = useState('All')
+  const sectionRef = useRef(null)
+  const skillCardsRef = useRef([])
+
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+
+    const handleScroll = () => {
+      const rect = section.getBoundingClientRect()
+      const scrollProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)))
+      
+      skillCardsRef.current.forEach((card, index) => {
+        if (card) {
+          const speed = 0.2 + ((index % 6) * 0.05)
+          const offset = (1 - scrollProgress) * 80 * speed
+          const rotate = (1 - scrollProgress) * 10 * ((index % 2) ? 1 : -1)
+          card.style.transform = `translateY(${offset}px) rotateY(${rotate}deg)`
+          card.style.opacity = '1'
+        }
+      })
+    }
+
+    // Touch support for mobile
+    const handleTouchMove = () => {
+      handleScroll()
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('touchmove', handleTouchMove, { passive: true })
+    handleScroll()
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('touchmove', handleTouchMove)
+    }
+  }, [activeTab])
 
   const handleTabClick = (e, tabName) => {
     e.preventDefault()
@@ -76,7 +112,7 @@ const Skills = () => {
   }
 
   return (
-    <section id="skills" className="section">
+    <section id="skills" className="section" ref={sectionRef}>
       <div className="section-shapes">
         <div className="shape shape-square section-shape-4"></div>
         <div className="shape shape-circle section-shape-5"></div>
@@ -105,7 +141,7 @@ const Skills = () => {
 
       <div className="skills-grid">
         {skillsData[activeTab].map((skill, idx) => (
-          <div key={`${activeTab}-${idx}`} className="skill-item visible">
+          <div key={`${activeTab}-${idx}`} className="skill-item visible" ref={el => skillCardsRef.current[idx] = el}>
             <i className={`${skill.icon} skill-icon`}></i>
             <h4>{skill.name}</h4>
             <p>{skill.level}</p>
