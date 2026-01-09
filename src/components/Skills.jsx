@@ -68,7 +68,9 @@ const skillsData = {
 const Skills = () => {
   const [activeTab, setActiveTab] = useState('All')
 
-  const handleTabClick = (tabName) => {
+  const handleTabClick = (e, tabName) => {
+    e.preventDefault()
+    e.stopPropagation()
     console.log('Tab clicked:', tabName)
     setActiveTab(tabName)
   }
@@ -93,11 +95,7 @@ const Skills = () => {
           <button
             key={tab}
             className={`skills-tab ${activeTab === tab ? 'active' : ''}`}
-            onMouseDown={(e) => {
-              e.stopPropagation()
-              e.preventDefault()
-              handleTabClick(tab)
-            }}
+            onClick={(e) => handleTabClick(e, tab)}
             type="button"
           >
             {tab}
@@ -107,7 +105,7 @@ const Skills = () => {
 
       <div className="skills-grid">
         {skillsData[activeTab].map((skill, idx) => (
-          <div key={idx} className="skill-item">
+          <div key={`${activeTab}-${idx}`} className="skill-item visible">
             <i className={`${skill.icon} skill-icon`}></i>
             <h4>{skill.name}</h4>
             <p>{skill.level}</p>
