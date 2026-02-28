@@ -25,10 +25,10 @@ const projectsData = [
     icon: 'Briefcase'
   },
   {
-    title: 'ScrapeMind AI – Universal E-Commerce Scraper',
-    description: 'Production-grade universal e-commerce scraper with a 6-layer extraction pipeline (JSON-LD, Microdata, OG, DOM, API, AI) and confidence scoring across 100+ platforms. Async microservices with RabbitMQ, MySQL, Prometheus monitoring, and JWT auth.',
-    tags: ['Python', 'FastAPI', 'Gemini AI', 'RabbitMQ', 'Docker', 'Chrome Extension'],
-    link: '',
+    title: 'ScrapeMind AI – Universal AI Scraper Engine',
+    description: 'Enterprise-grade Chrome extension (Manifest V3) extracting product data from 500+ e-commerce domains using multi-layer extraction (JSON-LD, Microdata, DOM, AI fallback). FastAPI backend with Gemini LLM achieving 85%+ extraction confidence, Token Bucket rate limiting, abuse detection with threat classification, Prometheus/Grafana monitoring (40+ metrics), RabbitMQ async processing, JWT auth with RBAC, and CI/CD via GitHub Actions with Sentry integration.',
+    tags: ['FastAPI', 'Gemini AI', 'MySQL', 'Redis', 'RabbitMQ', 'Docker', 'Chrome Extension', 'CI/CD'],
+    link: 'https://github.com/Nikhilsangale2002/ScraperMind-AI',
     icon: 'Search'
   }
 ]
