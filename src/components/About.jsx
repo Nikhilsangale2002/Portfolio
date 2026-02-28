@@ -8,7 +8,7 @@ const About = () => {
   const skills = [
     "JavaScript", "React", "Next.js", "Node.js",
     "Python", "Flask", "Docker", "AWS",
-    "MySQL", "MongoDB", "Tailwind CSS", "Git"
+    "MySQL" ,"Redis", "RabbitMQ", "CI/CD" , "Prometheus/Grafana",  "MongoDB", "Tailwind CSS", "Git"
   ]
 
   return (
