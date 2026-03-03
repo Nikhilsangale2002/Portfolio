@@ -18,9 +18,9 @@ const projectsData = [
     icon: 'Code2'
   },
   {
-    title: 'Resume ATS System',
-    description: 'AI-powered ATS using Python, Streamlit and Generative AI (Gemini Pro API) with ~90% accuracy for resume analysis and JD matching.',
-    tags: ['Python', 'Streamlit', 'Gemini AI', 'MySQL'],
+    title: 'ATS Resume Scoring System',
+    description: 'Production-grade ATS that analyzes resumes against job descriptions using local AI/NLP — no external API keys required. Features a 7-category weighted scoring engine (Technical Skills, Experience, Education, Certifications, Semantic Match, Format, Soft Skills), PDF/DOCX parsing with multi-library fallback, spaCy skill extraction, Sentence Transformers semantic matching, JWT auth with refresh tokens, Redis sliding-window rate limiting, and Celery async workers. Processes resumes in <3s with 500+ skill normalizations, handles 100+ req/min, fully offline capable.',
+    tags: ['Python', 'FastAPI', 'Next.js', 'TypeScript', 'MySQL', 'Redis', 'Docker', 'spaCy', 'Sentence Transformers'],
     link: 'https://github.com/Nikhilsangale2002/Resume_ATS_System',
     icon: 'Briefcase'
   },
