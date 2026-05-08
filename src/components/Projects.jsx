@@ -23,6 +23,7 @@ const projectsData = [
     tags: ['Python', 'FastAPI', 'Next.js', 'TypeScript', 'MySQL', 'Redis', 'Docker', 'spaCy', 'Sentence Transformers'],
     link: 'https://github.com/Nikhilsangale2002/Resume_ATS_System',
     icon: 'Briefcase'
+    
   },
   {
     title: 'ScrapeMind AI – Universal AI Scraper Engine',
