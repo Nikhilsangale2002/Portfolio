@@ -1,5 +1,5 @@
-import { motion, useScroll, useTransform } from "framer-motion"
-import { useRef, useState } from "react"
+import { motion } from "framer-motion"
+import { useState } from "react"
 import { createPortal } from "react-dom"
 import { Briefcase } from "lucide-react"
 
@@ -7,10 +7,10 @@ const experienceData = [
   {
     role: 'Full-stack Developer',
     company: 'Reclaim',
-    period: 'July 2025 – Present',
+    period: 'Jan 2025 – Present',
     location: 'Remote, India',
     description: 'Leading full-stack development for a social impact platform focused on environmental sustainability.',
-    tags: ['Flask', 'React', 'AWS', 'Docker'],
+    tags: ['Flask', 'React', 'AWS', 'Docker' , 'MySQL', 'Redis' , 'GenAi'],
     fullDetails: {
       description: 'Leading full-stack development for a social impact platform focused on environmental sustainability and community engagement.',
       responsibilities: [
@@ -21,60 +21,16 @@ const experienceData = [
         'Deployed on AWS EC2 with CI/CD pipeline and zero-downtime deployments',
         'Integrated Redis for caching, reducing response time by 60%'
       ],
-      technologies: ['Flask', 'React', 'PostgreSQL', 'Redis', 'Docker', 'AWS', 'Nginx', 'JWT']
+      technologies: ['Flask', 'React', 'MySQL', 'Redis', 'Docker', 'AWS', 'Nginx', 'JWT' , 'GenAi']
     }
   },
-  {
-    role: 'Software Developer',
-    company: 'RSL Solution',
-    period: 'Jan 2025 – July 2025',
-    location: 'Pune, India',
-    description: 'Developed enterprise-level web applications and AI-powered solutions for HR tech and recruitment.',
-    tags: ['Next.js', 'Flask', 'MySQL', 'AI'],
-    fullDetails: {
-      description: 'Developed enterprise-level web applications and AI-powered solutions for HR tech and recruitment automation.',
-      responsibilities: [
-        'Developed HireLens AI recruitment platform with Next.js and Flask',
-        'Built AI-powered resume screening system using LLMs achieving 90% accuracy',
-        'Designed RESTful APIs with comprehensive error handling',
-        'Implemented Docker-based microservices architecture',
-        'Collaborated in Agile/Scrum teams with daily standups'
-      ],
-      technologies: ['React.js', 'Next.js', 'Flask', 'MySQL', 'Docker', 'Nginx', 'Redis', 'OpenAI API']
-    }
-  },
-  {
-    role: 'Software Developer',
-    company: 'Hashedbit Innovation',
-    period: 'Mar 2024 – July 2024',
-    location: 'Remote, India',
-    description: 'Built full-stack web applications and learned industry best practices in a startup environment.',
-    tags: ['React', 'Node.js', 'MySQL', 'Git'],
-    fullDetails: {
-      description: 'Started my professional journey building full-stack web applications and learning industry best practices.',
-      responsibilities: [
-        'Developed responsive web interfaces using React.js and modern CSS',
-        'Designed RESTful APIs following REST principles',
-        'Created and optimized MySQL database schemas',
-        'Performed API testing using Postman',
-        'Used Git for version control and code reviews'
-      ],
-      technologies: ['React.js', 'Node.js', 'Express', 'MySQL', 'JavaScript', 'HTML/CSS', 'Git', 'Postman']
-    }
-  }
+  
 ]
 
 const Experience = () => {
-  const containerRef = useRef(null)
   const [selectedExp, setSelectedExp] = useState(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  })
-
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-55%"])
+  const isSingle = experienceData.length === 1
 
   const openModal = (exp) => {
     setSelectedExp(exp)
@@ -89,7 +45,7 @@ const Experience = () => {
   }
 
   const expHeader = (
-    <div className="max-w-5xl mx-auto px-6 mb-10">
+    <div className="max-w-5xl mb-10">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -114,7 +70,8 @@ const Experience = () => {
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: i * 0.1 }}
       onClick={() => openModal(exp)}
-      className="glass rounded-xl p-8 md:p-10 w-[85vw] md:w-[480px] lg:w-[620px] min-h-[400px] flex-shrink-0 group hover:border-primary/30 transition-all duration-500 cursor-pointer snap-center"
+      className="glass rounded-xl p-8 md:p-10 w-full min-h-[360px] group hover:border-primary/30 transition-all duration-500 cursor-pointer"
+      style={isSingle ? { maxWidth: "820px" } : undefined}
     >
       <div className="flex items-center gap-3 mb-4">
         <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -141,29 +98,12 @@ const Experience = () => {
 
   return (
     <>
-      {/* Mobile: touch snap scroll */}
-      <section id="experience" className="md:hidden py-20">
-        <div className="mb-10">{expHeader}</div>
-        <div
-          className="flex gap-5 overflow-x-auto snap-x snap-mandatory pl-6 pr-6 pb-4"
-          style={{ scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}
-        >
-          {expCards}
-        </div>
-        <div className="flex justify-center gap-1.5 mt-5">
-          {experienceData.map((_, i) => (
-            <div key={i} className="w-1.5 h-1.5 rounded-full bg-primary/40" />
-          ))}
-        </div>
-      </section>
-
-      {/* Desktop: scroll-driven sticky */}
-      <section ref={containerRef} className="relative hidden md:block" style={{ height: "250vh" }}>
-        <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
+      <section id="experience" className="py-20">
+        <div className="max-w-6xl mx-auto px-6">
           {expHeader}
-          <motion.div style={{ x }} className="flex gap-6 pl-24 w-max">
+          <div className={`grid gap-6 md:gap-8 ${isSingle ? "md:grid-cols-1 justify-items-center" : "md:grid-cols-2"}`}>
             {expCards}
-          </motion.div>
+          </div>
         </div>
       </section>
 

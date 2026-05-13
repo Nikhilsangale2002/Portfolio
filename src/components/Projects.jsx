@@ -1,5 +1,4 @@
-import { motion, useScroll, useTransform } from "framer-motion"
-import { useRef } from "react"
+import { motion } from "framer-motion"
 import { ExternalLink, Code2, Brain, Briefcase, Search } from "lucide-react"
 
 const projectsData = [
@@ -37,16 +36,8 @@ const projectsData = [
 const iconMap = { Brain, Code2, Briefcase, Search }
 
 const Projects = () => {
-  const containerRef = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  })
-
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-72%"])
-
   const header = (
-    <div className="max-w-5xl mx-auto px-6 mb-12">
+    <div className="max-w-5xl mb-12">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -73,7 +64,7 @@ const Projects = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.1 * i }}
         onClick={() => project.link && window.open(project.link, '_blank')}
-        className="group glass rounded-xl overflow-hidden hover:border-primary/30 transition-all duration-500 w-[85vw] md:w-[480px] lg:w-[620px] min-h-[400px] flex-shrink-0 cursor-pointer snap-center"
+        className="group glass rounded-xl overflow-hidden hover:border-primary/30 transition-all duration-500 w-full min-h-[360px] cursor-pointer"
       >
         <div className="p-8 md:p-10">
           <div className="flex items-center justify-between mb-6">
@@ -107,33 +98,14 @@ const Projects = () => {
   })
 
   return (
-    <>
-      {/* Anchor for #projects link */}
-      <div id="projects" />
-
-      {/* Mobile: touch snap scroll */}
-      <section className="md:hidden py-20 px-0">
-        <div className="px-6 mb-10">{header}</div>
-        <div className="flex gap-5 overflow-x-auto snap-x snap-mandatory pl-6 pr-6 pb-4 scrollbar-hide" style={{ scrollbarWidth: 'none' }}>
+    <section id="projects" className="py-20">
+      <div className="max-w-6xl mx-auto px-6">
+        {header}
+        <div className="grid gap-6 md:gap-8 md:grid-cols-2">
           {cards}
         </div>
-        <div className="flex justify-center gap-1.5 mt-5">
-          {projectsData.map((_, i) => (
-            <div key={i} className="w-1.5 h-1.5 rounded-full bg-primary/40" />
-          ))}
-        </div>
-      </section>
-
-      {/* Desktop: scroll-driven sticky */}
-      <section ref={containerRef} className="relative hidden md:block" style={{ height: "320vh" }}>
-        <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
-          {header}
-          <motion.div style={{ x }} className="flex gap-8 pl-24 w-max">
-            {cards}
-          </motion.div>
-        </div>
-      </section>
-    </>
+      </div>
+    </section>
   )
 }
 
