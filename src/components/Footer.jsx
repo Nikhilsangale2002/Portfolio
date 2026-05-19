@@ -7,7 +7,7 @@ const Footer = () => {
         <a href="https://github.com/nikhilsangale2002" className="text-muted-foreground hover:text-primary transition-colors" target="_blank" rel="noreferrer">
           <Github className="w-5 h-5" />
         </a>
-        <a href="https://linkedin.com/in/nikhilsangale" className="text-muted-foreground hover:text-primary transition-colors" target="_blank" rel="noreferrer">
+        <a href="https://www.linkedin.com/in/nikhil-sangale-053921292" className="text-muted-foreground hover:text-primary transition-colors" target="_blank" rel="noreferrer">
           <Linkedin className="w-5 h-5" />
         </a>
         <a href="mailto:nikhilsangale121@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
