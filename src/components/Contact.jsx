@@ -1,55 +1,16 @@
 import { motion, useInView } from "framer-motion"
-import { useRef, useState, useEffect } from "react"
+import { useRef, useState } from "react"
 import { Mail, MapPin, Send } from "lucide-react"
 
 const Contact = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-80px" })
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [statusMessage, setStatusMessage] = useState({ type: '', text: '' })
-
-  useEffect(() => {
-    if (statusMessage.text) {
-      const timer = setTimeout(() => setStatusMessage({ type: '', text: '' }), 3000)
-      return () => clearTimeout(timer)
-    }
-  }, [statusMessage])
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setStatusMessage({ type: '', text: '' })
-
-    try {
-      const response = await fetch('https://formsubmit.co/ajax/nikhilsangale121@gmail.com', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          _subject: 'New Portfolio Contact Form Submission',
-          _captcha: 'false'
-        })
-      })
-
-      if (response.ok) {
-        setStatusMessage({ type: 'success', text: 'Thank you! Your message has been sent.' })
-        setFormData({ name: '', email: '', message: '' })
-      } else {
-        setStatusMessage({ type: 'error', text: 'Failed to send. Please email me directly.' })
-      }
-    } catch (error) {
-      setStatusMessage({ type: 'error', text: 'Failed to send. Please email me directly.' })
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
 
   return (
     <section id="contact" className="py-32 px-6" ref={ref}>
@@ -75,13 +36,11 @@ const Contact = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="space-y-5 text-left"
-          onSubmit={handleSubmit}
+          action="https://api.web3forms.com/submit"
+          method="POST"
         >
-          {statusMessage.text && (
-            <div className={`p-4 rounded-lg text-sm ${statusMessage.type === 'success' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>
-              {statusMessage.text}
-            </div>
-          )}
+          <input type="hidden" name="access_key" value="4b527ec4-85de-4cdd-8c87-1c9255de7f7e" />
+          <input type="hidden" name="subject" value="New Portfolio Contact Form Submission" />
           <div className="grid md:grid-cols-2 gap-5">
             <input
               type="text"
@@ -113,12 +72,21 @@ const Contact = () => {
           />
           <button
             type="submit"
-            disabled={isSubmitting}
-            className="w-full md:w-auto px-8 py-3 bg-primary text-primary-foreground font-display font-medium rounded-lg hover:brightness-110 transition-all duration-300 flex items-center gap-2 mx-auto disabled:opacity-50"
+            className="w-full md:w-auto px-8 py-3 bg-primary text-primary-foreground font-display font-medium rounded-lg hover:brightness-110 transition-all duration-300 flex items-center gap-2 mx-auto"
           >
             <Send className="w-4 h-4" />
-            {isSubmitting ? 'Sending...' : 'Send Message'}
+            Send Message
           </button>
+          <p className="text-center text-xs text-muted-foreground">
+            Trouble submitting? Email me at{" "}
+            <a
+              href="mailto:nikhilsangale121@gmail.com"
+              className="text-primary hover:underline"
+            >
+              nikhilsangale121@gmail.com
+            </a>
+            .
+          </p>
         </motion.form>
 
         <motion.div
