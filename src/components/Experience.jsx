@@ -1,5 +1,56 @@
 import { motion, AnimatePresence } from "framer-motion"
 import { useState } from "react"
+import Reveal from "./Reveal"
+import reclaimIcon from "../assets/reclaim/reclaim-icon.jpg"
+import carecallerIcon from "../assets/app_icon_carecaller.svg"
+import reclaimPhone1 from "../assets/reclaim/phone-1.png"
+import reclaimPhone2 from "../assets/reclaim/phone-2.png"
+import reclaimPhone3 from "../assets/reclaim/phone-3.png"
+import reclaimPhone4 from "../assets/reclaim/phone-4.png"
+import reclaimPhone5 from "../assets/reclaim/phone-5.png"
+import reclaimPhone6 from "../assets/reclaim/phone-6.png"
+
+const AppleIcon = (props) => (
+  <svg viewBox="0 0 384 512" fill="currentColor" {...props}>
+    <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z" />
+  </svg>
+)
+
+const PlayIcon = (props) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+    <path d="M3 20.5V3.5c0-.59.34-1.11.84-1.35L13.69 12l-9.85 9.85c-.5-.25-.84-.76-.84-1.35m13.81-5.38L6.05 21.34l8.49-8.49 2.27 2.27m3.35-4.31c.34.27.59.69.59 1.19s-.25.92-.59 1.19l-2.27 1.31-2.5-2.5 2.5-2.5 2.27 1.31M6.05 2.66l10.76 6.22-2.27 2.27-8.49-8.49z" />
+  </svg>
+)
+
+const ChromeIcon = (props) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+    <path d="M12 20l3.46-6h-.01c.34-.6.55-1.27.55-2 0-1.2-.54-2.27-1.38-3h4.79c.38.93.59 1.94.59 3a8 8 0 0 1-8 8M4 12c0-1.46.39-2.82 1.07-4l3.47 6h.01A3.99 3.99 0 0 0 12 16c.45 0 .88-.08 1.29-.21l-2.4 4.15C7 19.4 4 16.05 4 12m11 0a3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3M12 4c2.96 0 5.54 1.61 6.92 4H12c-1.94 0-3.55 1.38-3.92 3.21L5.7 7.08C7.16 5.21 9.44 4 12 4m0-2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2Z" />
+  </svg>
+)
+
+const badgeCopy = {
+  apple: { hint: "Download on the", label: "App Store", Icon: AppleIcon },
+  play: { hint: "Get it on", label: "Google Play", Icon: PlayIcon },
+  chrome: { hint: "Available in the", label: "Chrome Web Store", Icon: ChromeIcon },
+}
+
+const StoreBadge = ({ href, kind }) => {
+  const { hint, label, Icon } = badgeCopy[kind]
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className="flex items-center gap-2.5 px-4 py-2 rounded-lg border border-border bg-secondary/40 hover:border-primary/50 hover:bg-secondary/70 transition-all duration-300"
+    >
+      <Icon className="w-5 h-5" />
+      <span className="flex flex-col leading-tight text-left">
+        <span className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground">{hint}</span>
+        <span className="text-sm font-display font-semibold">{label}</span>
+      </span>
+    </a>
+  )
+}
 
 const experienceData = [
   {
@@ -16,6 +67,9 @@ const experienceData = [
       'Full observability — Prometheus (8 metrics incl. TTFT histogram), Grafana, Sentry — plus Razorpay HMAC-SHA256 billing and async S3 recording storage.',
     ],
     technologies: ['Go (Fiber)', 'FastAPI', 'Gemini Live', 'Flutter', 'AWS EC2','AWS SES', 'AWS S3', 'Cloudflare', 'Nginx', 'Docker', 'Redis', 'Prometheus', 'Grafana', 'Sentry', 'Razorpay'],
+    app: {
+      icon: carecallerIcon,
+    },
   },
   {
     role: 'Full Stack Developer',
@@ -23,14 +77,28 @@ const experienceData = [
     project: 'Reclaim — Shopping Platform',
     period: 'Jan 2025 — Jun 2026',
     location: 'Remote',
-    description: 'Owned full-stack development of Reclaim — a microservices backend, React frontend, and an AI-driven product-data pipeline.',
+    description: 'Developing an AI-powered sustainable fashion platform that simplifies resale and recycling. Built a cross-platform mobile app with AI image analysis, digital closet management, donation logistics, and a rewards ecosystem.',
     responsibilities: [
       'Gemini Vision API for multi-image attribute extraction + OCR fusion; a confidence-scoring pipeline cut manual data entry by 60% across 900+ domains.',
       'Full-stack e-commerce platform with 100+ Flask REST APIs and a React.js frontend across a 6-service microservices architecture.',
       'Chrome Extension (Manifest V3) with a multi-layer scraping engine supporting 900+ domains via JSON-LD, Microdata & DOM parsing.',
       'Production infra on AWS EC2 with Docker Compose + Nginx, holding 99.9% uptime and sub-100ms routing overhead via health checks.',
+      'AI-powered image analysis for automatic clothing categorization',
+      'Digital closet management with smart organization',
+      'Donation logistics and pickup scheduling',
+      'Rewards ecosystem with gamification elements',
+      'Real-time push notifications & in-app events',
+      'Social features – invite friends & referral system',
+      'Multi-authentication (Google, Apple, Email, Phone)',
     ],
-    technologies: ['Flask', 'React.js', 'Gemini Vision', 'MySQL', 'Redis', 'Docker', 'Nginx', 'AWS EC2', 'Microservices', 'Chrome Extension'],
+    technologies: ['Flask', 'React.js', 'Gemini Vision', 'MySQL', 'Redis', 'Docker', 'Nginx', 'AWS EC2','AWS S3' , 'AWS RDS' , 'Brevo', 'Chrome Extension'],
+    app: {
+      icon: reclaimIcon,
+      screens: [reclaimPhone1, reclaimPhone2, reclaimPhone3, reclaimPhone4, reclaimPhone5, reclaimPhone6],
+      appStore: 'https://apps.apple.com/in/app/reclaim/id6744350699',
+      playStore: 'https://play.google.com/store/apps/details?id=com.world.Reclaim',
+      chromeStore: 'https://chromewebstore.google.com/detail/reclaim/loihekpmijphnlhoegfphgpnegohefkl',
+    },
   },
 ]
 
@@ -49,14 +117,16 @@ const Experience = () => {
           transition={{ duration: 0.6 }}
           className="flex items-center gap-4 mb-12"
         >
-          <span className="text-primary font-display text-sm tracking-[0.3em] uppercase">03</span>
+          <span className="text-primary font-mono text-xs tracking-[0.25em] uppercase">03</span>
           <span className="h-px flex-1 max-w-[80px] bg-border" />
-          <p className="text-muted-foreground font-display text-sm tracking-[0.3em] uppercase">Experience</p>
+          <p className="text-muted-foreground font-mono text-xs tracking-[0.25em] uppercase">/Experience</p>
         </motion.div>
 
-        <h2 className="text-3xl md:text-5xl font-display font-bold mb-12 md:mb-16">
-          Where I've <span className="text-gradient">Worked</span>
-        </h2>
+        <Reveal onScroll className="mb-12 md:mb-16">
+          <h2 className="text-3xl md:text-5xl font-display font-bold">
+            Where I've <span className="text-gradient">Worked</span>
+          </h2>
+        </Reveal>
 
         <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-8 lg:gap-14">
           {/* Master: selectable role list */}
@@ -118,15 +188,45 @@ const Experience = () => {
                   0{active + 1}
                 </span>
 
-                <p className="text-primary font-display text-xs tracking-[0.25em] uppercase mb-3">
-                  {exp.project}
-                </p>
-                <h3 className="text-2xl md:text-3xl font-display font-bold">{exp.role}</h3>
-                <p className="text-muted-foreground text-sm mt-2 mb-6">
-                  {exp.company} · {exp.location}
-                </p>
+                <div className="flex items-start gap-4">
+                  {exp.app && (
+                    <img
+                      src={exp.app.icon}
+                      alt={`${exp.project} app icon`}
+                      className="w-14 h-14 rounded-2xl border border-border shadow-lg shadow-primary/10 shrink-0"
+                    />
+                  )}
+                  <div>
+                    <p className="text-primary font-display text-xs tracking-[0.25em] uppercase mb-3">
+                      {exp.project}
+                    </p>
+                    <h3 className="text-2xl md:text-3xl font-display font-bold">{exp.role}</h3>
+                    <p className="text-muted-foreground text-sm mt-2 mb-6">
+                      {exp.company} · {exp.location}
+                    </p>
+                  </div>
+                </div>
 
                 <p className="text-foreground/90 leading-relaxed mb-7">{exp.description}</p>
+
+                {exp.app?.appStore && (
+                  <div className="flex flex-wrap items-center gap-3 mb-7 no-print">
+                    <StoreBadge href={exp.app.appStore} kind="apple" />
+                    <StoreBadge href={exp.app.playStore} kind="play" />
+                    {exp.app.chromeStore && <StoreBadge href={exp.app.chromeStore} kind="chrome" />}
+                  </div>
+                )}
+                {exp.app?.screens && (
+                  <div className="screens-wrap relative overflow-hidden mb-8 no-print">
+                    <div className="screens-track">
+                      {[...exp.app.screens, ...exp.app.screens].map((src, i) => (
+                        <div key={i} className="phone-frame">
+                          <img src={src} alt={`${exp.project} app screenshot`} loading="lazy" />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 <ul className="space-y-3 mb-8">
                   {exp.responsibilities.map((r, i) => (

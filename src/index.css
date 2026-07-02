@@ -1,50 +1,51 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=Caveat:wght@500;600&display=swap');
 
 @import "tailwindcss";
 @config "../tailwind.config.js";
 
 @layer base {
   :root {
-    --background: 240 10% 6%;
-    --foreground: 40 10% 92%;
+    /* Charn-style palette: warm off-white #f2f0ef, ink #161616, warm gray #6b6560, orange accent */
+    --background: 30 9% 94%;
+    --foreground: 0 0% 9%;
 
-    --card: 240 8% 10%;
-    --card-foreground: 40 10% 92%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 9%;
 
-    --popover: 240 8% 10%;
-    --popover-foreground: 40 10% 92%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 9%;
 
-    --primary: 38 92% 50%;
-    --primary-foreground: 240 10% 6%;
+    --primary: 25 38% 35%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 6% 14%;
-    --secondary-foreground: 40 10% 80%;
+    --secondary: 30 7% 88%;
+    --secondary-foreground: 0 0% 16%;
 
-    --muted: 240 6% 16%;
-    --muted-foreground: 240 5% 55%;
+    --muted: 30 7% 88%;
+    --muted-foreground: 27 5% 40%;
 
-    --accent: 38 92% 50%;
-    --accent-foreground: 240 10% 6%;
+    --accent: 25 38% 35%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 240 6% 18%;
-    --input: 240 6% 18%;
-    --ring: 38 92% 50%;
+    --border: 30 6% 82%;
+    --input: 30 6% 82%;
+    --ring: 25 38% 35%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    --sidebar-background: 240 8% 8%;
-    --sidebar-foreground: 40 10% 92%;
-    --sidebar-primary: 38 92% 50%;
-    --sidebar-primary-foreground: 240 10% 6%;
-    --sidebar-accent: 240 6% 14%;
-    --sidebar-accent-foreground: 40 10% 80%;
-    --sidebar-border: 240 6% 18%;
-    --sidebar-ring: 38 92% 50%;
-    
-    color-scheme: dark; 
+    --sidebar-background: 30 9% 92%;
+    --sidebar-foreground: 0 0% 9%;
+    --sidebar-primary: 25 38% 35%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 30 7% 88%;
+    --sidebar-accent-foreground: 0 0% 16%;
+    --sidebar-border: 30 6% 82%;
+    --sidebar-ring: 25 38% 35%;
+
+    color-scheme: light;
     /* Mobile viewport optimization */
     -webkit-tap-highlight-color: rgba(100, 108, 255, 0.1);
   }
@@ -66,7 +67,7 @@
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
-    font-family: 'DM Sans', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', 'Helvetica Neue', sans-serif;
     margin: 0;
     min-height: 100vh;
   }
@@ -76,8 +77,9 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Helvetica Neue', sans-serif;
     line-height: 1.2;
+    letter-spacing: -0.015em;
   }
 
   img {
@@ -97,13 +99,13 @@
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  background-image: linear-gradient(to right, hsl(38 92% 50%), hsl(43 96% 56%), hsl(38 92% 50%));
+  background-image: linear-gradient(90deg, #7a4a2b, #a5764a, #7a4a2b);
 }
 
 @utility glass {
-  background-color: hsl(240 8% 10% / 0.6);
-  backdrop-filter: blur(24px);
-  border: 1px solid hsl(240 6% 18% / 0.5);
+  background-color: hsl(0 0% 100% / 0.7);
+  backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid hsl(0 0% 9% / 0.08);
 }
 
 @utility btn-primary {
@@ -128,6 +130,57 @@
   box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
 }
 
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px hsl(var(--foreground) / 0.14);
+}
+
+/* Apple-style "hello" intro */
+.hello-svg text {
+  font-family: 'Caveat', cursive;
+  font-size: 120px;
+  font-weight: 600;
+  fill: transparent;
+  stroke: #f5f5f7;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 720;
+  stroke-dashoffset: 720;
+  animation:
+    hello-draw 1.15s cubic-bezier(0.4, 0, 0.2, 1) forwards,
+    hello-fill 0.4s ease 0.95s forwards;
+}
+@keyframes hello-draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes hello-fill {
+  to { fill: #f5f5f7; }
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Film-grain overlay */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
 /* Skills marquee */
 .marquee-track {
   display: flex;
@@ -136,6 +189,35 @@
 }
 .marquee-track:hover {
   animation-play-state: paused;
+}
+
+/* App screenshots filmstrip (Experience → Reclaim) */
+.screens-wrap {
+  mask-image: linear-gradient(90deg, transparent, black 7%, black 93%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 7%, black 93%, transparent);
+}
+.screens-track {
+  display: flex;
+  gap: 0.9rem;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+.screens-track:hover {
+  animation-play-state: paused;
+}
+.phone-frame {
+  flex-shrink: 0;
+  width: 86px;
+  border-radius: 0.9rem;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--card));
+  padding: 0.25rem;
+  overflow: hidden;
+}
+.phone-frame img {
+  border-radius: 0.7rem;
+  width: 100%;
+  height: auto;
 }
 @keyframes marquee {
   0% { transform: translateX(0); }
@@ -150,7 +232,7 @@
   }
 
   html, body, #root {
-    background-color: hsl(240 10% 6%) !important;
+    background-color: hsl(0 0% 0%) !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }

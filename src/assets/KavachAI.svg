@@ -1,0 +1,48 @@
+<svg width="500" height="215" viewBox="120 76 500 215" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Kavach AI</title>
+
+  <!-- Layered circuit-shield mark -->
+  <path d="M210,80 L270,105 L290,115 L290,185 C290,235 255,268 210,285 C165,268 130,235 130,185 L130,115 L150,105 Z" fill="none" stroke="#1F6FEB" stroke-width="1.5"/>
+  <path d="M210,92 L263,113 L277,121 L277,184 C277,228 247,258 210,273 C173,258 143,228 143,184 L143,121 L157,113 Z" fill="none" stroke="#388BFD" stroke-width="1" opacity="0.6"/>
+  <path d="M210,104 L254,122 L265,129 L265,183 C265,221 239,248 210,261 C181,248 155,221 155,183 L155,129 L166,122 Z" fill="#EEF2FF" stroke="#1F6FEB" stroke-width="1.5"/>
+
+  <line x1="168" y1="155" x2="252" y2="155" stroke="#58A6FF" stroke-width="1.5" opacity="0.9"/>
+  <line x1="172" y1="175" x2="248" y2="175" stroke="#1F6FEB" stroke-width="1" opacity="0.5"/>
+  <line x1="175" y1="195" x2="245" y2="195" stroke="#1F6FEB" stroke-width="1" opacity="0.5"/>
+  <line x1="170" y1="215" x2="250" y2="215" stroke="#1F6FEB" stroke-width="1" opacity="0.5"/>
+  <line x1="185" y1="155" x2="185" y2="215" stroke="#1F6FEB" stroke-width="1" opacity="0.5"/>
+  <line x1="210" y1="140" x2="210" y2="225" stroke="#58A6FF" stroke-width="1.5" opacity="0.9"/>
+  <line x1="235" y1="155" x2="235" y2="215" stroke="#1F6FEB" stroke-width="1" opacity="0.5"/>
+
+  <circle cx="210" cy="155" r="8" fill="#388BFD" opacity="0.3"/>
+  <circle cx="210" cy="215" r="8" fill="#388BFD" opacity="0.3"/>
+  <circle cx="185" cy="155" r="3" fill="#1F6FEB"/>
+  <circle cx="235" cy="155" r="3" fill="#1F6FEB"/>
+  <circle cx="185" cy="215" r="3" fill="#1F6FEB"/>
+  <circle cx="235" cy="215" r="3" fill="#1F6FEB"/>
+  <circle cx="210" cy="155" r="4" fill="#1F6FEB"/>
+  <circle cx="210" cy="215" r="4" fill="#1F6FEB"/>
+
+  <polyline points="163,185 174,185 180,185 184,162 188,208 193,168 197,202 201,185 219,185 223,168 227,202 231,185 235,185 240,185 257,185" fill="none" stroke="#3FB950" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <circle cx="210" cy="185" r="14" fill="none" stroke="#58A6FF" stroke-width="1.5"/>
+  <circle cx="210" cy="185" r="5" fill="#1F6FEB"/>
+  <path d="M210,167 A18,18 0 0 1 228,185" fill="none" stroke="#58A6FF" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/>
+  <path d="M210,203 A18,18 0 0 1 192,185" fill="none" stroke="#58A6FF" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/>
+
+  <line x1="200" y1="96" x2="200" y2="108" stroke="#388BFD" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  <line x1="220" y1="96" x2="220" y2="108" stroke="#388BFD" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  <polyline points="133,130 133,120 143,120" fill="none" stroke="#388BFD" stroke-width="1.5" stroke-linecap="round"/>
+  <polyline points="277,120 287,120 287,130" fill="none" stroke="#388BFD" stroke-width="1.5" stroke-linecap="round"/>
+
+  <rect x="203" y="262" width="14" height="10" rx="2" fill="#3FB950"/>
+  <rect x="205" y="258" width="10" height="7" rx="5" fill="none" stroke="#3FB950" stroke-width="1.5"/>
+
+  <!-- Wordmark -->
+  <text x="308" y="174" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="700" fill="#1A1A2E">Kavach</text>
+  <text x="308" y="228" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="300" fill="#555555" letter-spacing="6">AI</text>
+  <circle cx="300" cy="215" r="4" fill="#3FB950"/>
+  <line x1="308" y1="240" x2="530" y2="240" stroke="#1F6FEB" stroke-width="1.5" opacity="0.35"/>
+  <line x1="308" y1="240" x2="360" y2="240" stroke="#3FB950" stroke-width="2"/>
+  <text x="308" y="266" font-family="Arial, Helvetica, sans-serif" font-size="13" letter-spacing="2" fill="#888888">REAL-TIME FRAUD INTELLIGENCE</text>
+</svg>

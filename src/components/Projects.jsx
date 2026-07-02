@@ -1,9 +1,28 @@
 import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion"
 import { useState } from "react"
+import Reveal, { BlurIn } from "./Reveal"
 import { createPortal } from "react-dom"
 import { ArrowUpRight, Github, X, Brain, Code2, Briefcase, Search } from "lucide-react"
+import kavachaiLogo from "../assets/KavachAI.svg"
 
 const projectsData = [
+  {
+    title: 'KavachAI',
+    subtitle: 'Real-Time Fraud Detection Platform',
+    year: '2026',
+    description: 'Real-time fraud detection scoring transactions in under 50ms with a hybrid Rule + ML + LLM pipeline — FastAPI, Kafka, Redis, XGBoost, and Gemini.',
+    overview: 'FraudShield (KavachAI) is a real-time fraud detection platform that scores financial transactions in under 50ms using a hybrid Rule + ML + LLM pipeline, delivering instant approve/review/block decisions with asynchronous natural-language explanations for flagged transactions.',
+    highlights: [
+      'Real-time fraud scoring system processing transactions through a low-latency decision pipeline, returning APPROVE/REVIEW/BLOCK outcomes in under 50ms.',
+      'Hybrid fraud engine combining rule-based logic, XGBoost ML scoring, and asynchronous Gemini LLM explanations via Celery — AUC ~0.98 with MLflow-tracked retraining workflows.',
+      'Scalable backend with FastAPI, Kafka, Redis, PostgreSQL, async SQLAlchemy, and Pydantic v2 — rate limiting, API-key auth, and multi-tenant isolation.',
+      'Feature parity between offline training and production inference for identical ML behavior; observability via Prometheus, Grafana, and Nginx TLS with load-tested tuning.',
+      'Next.js dashboard for fraud analysts: live transaction monitoring, risk visualization, case review, billing, and API key management.',
+    ],
+    tags: ['FastAPI', 'Kafka', 'Redis', 'PostgreSQL', 'XGBoost', 'Gemini', 'Celery', 'Next.js'],
+    link: '',
+    logo: kavachaiLogo,
+  },
   {
     title: 'HireLens',
     subtitle: 'AI Recruitment Platform',
@@ -107,15 +126,17 @@ const Projects = () => {
           transition={{ duration: 0.6 }}
           className="flex items-center gap-4 mb-12"
         >
-          <span className="text-primary font-display text-sm tracking-[0.3em] uppercase">02</span>
+          <span className="text-primary font-mono text-xs tracking-[0.25em] uppercase">02</span>
           <span className="h-px flex-1 max-w-[80px] bg-border" />
-          <p className="text-muted-foreground font-display text-sm tracking-[0.3em] uppercase">Selected Work</p>
+          <p className="text-muted-foreground font-mono text-xs tracking-[0.25em] uppercase">/Selected Work</p>
         </motion.div>
 
-        <h2 className="text-3xl md:text-5xl font-display font-bold mb-3">
-          Featured <span className="text-gradient">Projects</span>
-        </h2>
-        <p className="text-muted-foreground text-sm mb-12 md:mb-16">Click a project to see details &amp; open the repository.</p>
+        <Reveal onScroll className="mb-3">
+          <h2 className="text-3xl md:text-5xl font-display font-bold">
+            Featured <span className="text-gradient">Projects</span>
+          </h2>
+        </Reveal>
+        <BlurIn className="text-muted-foreground text-sm mb-12 md:mb-16">Click a project to see details &amp; open the repository.</BlurIn>
 
         {/* Index rows */}
         <div onMouseMove={handleMouseMove}>
@@ -149,8 +170,10 @@ const Projects = () => {
                     <span className={`font-display text-sm tabular-nums transition-colors duration-300 ${isHovered ? "text-primary" : "text-muted-foreground/50"}`}>
                       0{i + 1}
                     </span>
-                    <span className="md:hidden w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                      <Icon className="w-4 h-4 text-primary" />
+                    <span className="md:hidden w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 overflow-hidden">
+                      {project.logo
+                        ? <img src={project.logo} alt={`${project.title} logo`} className="w-6 h-6 object-contain" />
+                        : <Icon className="w-4 h-4 text-primary" />}
                     </span>
                   </div>
 
@@ -198,8 +221,10 @@ const Projects = () => {
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.25 }}
           >
-            <div className="-translate-x-1/2 -translate-y-1/2 w-44 h-44 rounded-2xl bg-gradient-to-br from-primary to-amber-300 flex flex-col items-center justify-center gap-3 shadow-2xl shadow-primary/30">
-              {HoverIcon && <HoverIcon className="w-10 h-10 text-primary-foreground" />}
+            <div className="-translate-x-1/2 -translate-y-1/2 w-44 h-44 rounded-2xl bg-gradient-to-br from-primary to-amber-400 flex flex-col items-center justify-center gap-3 shadow-2xl shadow-primary/30">
+              {projectsData[hovered].logo
+                ? <img src={projectsData[hovered].logo} alt="" className="w-12 h-12 object-contain rounded-xl bg-white/90 p-1.5" />
+                : HoverIcon && <HoverIcon className="w-10 h-10 text-primary-foreground" />}
               <span className="font-display font-bold text-primary-foreground text-sm tracking-wide">
                 {projectsData[hovered].title}
               </span>
@@ -221,6 +246,7 @@ const Projects = () => {
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            data-lenis-prevent
             className="relative glass rounded-2xl p-7 md:p-9 max-w-2xl w-full max-h-[85vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
@@ -234,8 +260,10 @@ const Projects = () => {
 
             {/* header */}
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                {SelectedIcon && <SelectedIcon className="w-7 h-7 text-primary" />}
+              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 overflow-hidden">
+                {selected.logo
+                  ? <img src={selected.logo} alt={`${selected.title} logo`} className="w-9 h-9 object-contain" />
+                  : SelectedIcon && <SelectedIcon className="w-7 h-7 text-primary" />}
               </div>
               <div>
                 <h3 className="text-2xl font-display font-bold">{selected.title}</h3>
@@ -263,16 +291,18 @@ const Projects = () => {
               ))}
             </div>
 
-            <a
-              href={selected.link}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-display font-medium rounded-lg hover:brightness-110 transition-all duration-300"
-            >
-              <Github className="w-4 h-4" />
-              View Repository
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
+            {selected.link && (
+              <a
+                href={selected.link}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-display font-medium rounded-lg hover:brightness-110 transition-all duration-300"
+              >
+                <Github className="w-4 h-4" />
+                View Repository
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
+            )}
           </motion.div>
         </div>,
         document.body

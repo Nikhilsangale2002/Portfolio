@@ -1,5 +1,6 @@
-import { motion, useInView, animate } from "framer-motion"
+import { motion, useInView, animate, useScroll, useTransform } from "framer-motion"
 import { useRef, useEffect, useState } from "react"
+import Reveal, { BlurIn } from "./Reveal"
 
 const skillGroups = [
   { title: "Frontend", items: ["React.js", "Next.js", "JavaScript (ES6+)", "HTML5", "CSS3", "Tailwind CSS"] },
@@ -39,8 +40,15 @@ const About = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
+  // Subtle depth: the dossier card drifts against the scroll direction
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  })
+  const cardY = useTransform(scrollYProgress, [0, 1], [48, -48])
+
   return (
-    <section id="about" className="py-28 md:py-36 px-6" ref={ref}>
+    <section id="about" className="relative py-28 md:py-36 px-6" ref={ref}>
       <div className="max-w-6xl mx-auto">
         {/* Section label */}
         <motion.div
@@ -49,9 +57,9 @@ const About = () => {
           transition={{ duration: 0.6 }}
           className="flex items-center gap-4 mb-14"
         >
-          <span className="text-primary font-display text-sm tracking-[0.3em] uppercase">01</span>
+          <span className="text-primary font-mono text-xs tracking-[0.25em] uppercase">01</span>
           <span className="h-px flex-1 max-w-[80px] bg-border" />
-          <p className="text-muted-foreground font-display text-sm tracking-[0.3em] uppercase">About Me</p>
+          <p className="text-muted-foreground font-mono text-xs tracking-[0.25em] uppercase">/About Me</p>
         </motion.div>
 
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
@@ -62,7 +70,7 @@ const About = () => {
             transition={{ duration: 0.7 }}
             className="lg:col-span-5 lg:sticky lg:top-28"
           >
-            <div className="relative glass rounded-2xl p-7 md:p-8 overflow-hidden">
+            <motion.div style={{ y: cardY }} className="relative glass rounded-2xl p-7 md:p-8 overflow-hidden">
               {/* monogram watermark */}
               <span className="pointer-events-none absolute -top-10 -right-4 font-display font-bold text-[10rem] leading-none text-primary/[0.05] select-none">
                 NS
@@ -70,7 +78,7 @@ const About = () => {
 
               {/* identity */}
               <div className="relative flex items-center gap-4 mb-7">
-                <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary to-amber-300 flex items-center justify-center shadow-lg shadow-primary/20">
+                <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary to-amber-400 flex items-center justify-center shadow-lg shadow-primary/20">
                   <span className="font-display font-bold text-2xl text-primary-foreground">NS</span>
                 </div>
                 <div>
@@ -103,7 +111,7 @@ const About = () => {
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </motion.aside>
 
           {/* Right: statement + bio + capabilities */}
@@ -113,21 +121,23 @@ const About = () => {
             transition={{ duration: 0.7, delay: 0.15 }}
             className="lg:col-span-7"
           >
-            <h2 className="text-3xl md:text-[2.75rem] font-display font-bold leading-[1.1] mb-7">
-              I design and ship{" "}
-              <span className="text-gradient">full-stack products</span> &mdash; from API
-              architecture to <span className="text-gradient">production AI</span>.
-            </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-5 max-w-2xl">
+            <Reveal onScroll className="mb-7">
+              <h2 className="text-3xl md:text-[2.75rem] font-display font-bold leading-[1.1]">
+                I design and ship{" "}
+                <span className="text-gradient">full-stack products</span> &mdash; from API
+                architecture to <span className="text-gradient">production AI</span>.
+              </h2>
+            </Reveal>
+            <BlurIn className="text-muted-foreground text-lg leading-relaxed mb-5 max-w-2xl">
               Full Stack Developer and AI/GenAI Engineer with 1.5+ years building scalable
               web apps and production AI features &mdash; LLM integration, RAG pipelines, and
               real-time voice systems.
-            </p>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-12 max-w-2xl">
+            </BlurIn>
+            <BlurIn delay={0.1} className="text-muted-foreground text-lg leading-relaxed mb-12 max-w-2xl">
               I own the full lifecycle: system architecture, API design, and containerized
               deployment on AWS with Docker and CI/CD &mdash; with a track record of 99.9%
               uptime and sub-100ms latency.
-            </p>
+            </BlurIn>
 
             {/* Capabilities index */}
             <p className="text-sm text-muted-foreground uppercase tracking-[0.3em] mb-2 font-display">

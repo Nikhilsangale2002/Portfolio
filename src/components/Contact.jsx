@@ -1,6 +1,11 @@
 import { motion, useInView } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
-import { Mail, MapPin, Send } from "lucide-react"
+import { Mail, MapPin, Send, ArrowUpRight } from "lucide-react"
+import Reveal, { BlurIn } from "./Reveal"
+
+const inputClasses =
+  "w-full px-5 py-4 rounded-2xl bg-card border border-border text-foreground placeholder:text-muted-foreground/70 " +
+  "focus:outline-none focus:border-foreground/40 focus:ring-4 focus:ring-foreground/5 transition-all duration-300"
 
 const Contact = () => {
   const ref = useRef(null)
@@ -19,7 +24,6 @@ const Contact = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
-
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -45,7 +49,7 @@ const Contact = () => {
       } else {
         setStatusMessage({ type: 'error', text: 'Failed to send. Please email me directly.' })
       }
-    } catch (error) {
+    } catch {
       setStatusMessage({ type: 'error', text: 'Failed to send. Please email me directly.' })
     } finally {
       setIsSubmitting(false)
@@ -54,53 +58,62 @@ const Contact = () => {
 
   return (
     <section id="contact" className="py-32 px-6" ref={ref}>
-      <div className="max-w-3xl mx-auto text-center">
+      <div className="max-w-2xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-primary font-display text-sm tracking-[0.3em] uppercase mb-4">
-            Contact
+          <p className="text-primary font-mono text-xs tracking-[0.25em] uppercase mb-5">
+            /Contact
           </p>
-          <h2 className="text-3xl md:text-5xl font-display font-bold mb-6">
-            Let's Work <span className="text-gradient">Together</span>
-          </h2>
-          <p className="text-muted-foreground text-lg mb-12 max-w-lg mx-auto">
-            Have a project in mind? I'd love to hear about it. Drop me a message and let's create something amazing.
-          </p>
+          <Reveal onScroll className="mb-5">
+            <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight">
+              Let's work <span className="text-gradient">together.</span>
+            </h2>
+          </Reveal>
+          <BlurIn className="text-muted-foreground text-lg md:text-xl leading-relaxed mb-12 max-w-lg mx-auto">
+            Have a project in mind? Drop me a message &mdash; I usually reply within a day.
+          </BlurIn>
         </motion.div>
 
+        {/* Apple-style card form */}
         <motion.form
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="space-y-5 text-left"
+          className="glass rounded-3xl p-6 md:p-8 space-y-4 text-left shadow-[0_20px_60px_-30px_rgba(22,22,22,0.25)]"
           onSubmit={handleSubmit}
         >
           {statusMessage.text && (
-            <div className={`p-4 rounded-lg text-sm ${statusMessage.type === 'success' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>
+            <div
+              className={`p-4 rounded-2xl text-sm ${
+                statusMessage.type === 'success'
+                  ? 'bg-green-600/10 text-green-700'
+                  : 'bg-red-600/10 text-red-700'
+              }`}
+            >
               {statusMessage.text}
             </div>
           )}
-          <div className="grid md:grid-cols-2 gap-5">
+          <div className="grid md:grid-cols-2 gap-4">
             <input
               type="text"
               name="name"
-              placeholder="Your Name"
+              placeholder="Your name"
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full px-5 py-3 glass rounded-lg bg-secondary/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 transition-all"
+              className={inputClasses}
             />
             <input
               type="email"
               name="email"
-              placeholder="Your Email"
+              placeholder="Your email"
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-5 py-3 glass rounded-lg bg-secondary/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 transition-all"
+              className={inputClasses}
             />
           </div>
           <textarea
@@ -110,39 +123,42 @@ const Contact = () => {
             value={formData.message}
             onChange={handleChange}
             required
-            className="w-full px-5 py-3 glass rounded-lg bg-secondary/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 transition-all resize-none"
+            className={`${inputClasses} resize-none`}
           />
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full md:w-auto px-8 py-3 bg-primary text-primary-foreground font-display font-medium rounded-lg hover:brightness-110 transition-all duration-300 flex items-center gap-2 mx-auto disabled:opacity-50"
-          >
-            <Send className="w-4 h-4" />
-            {isSubmitting ? 'Sending...' : 'Send Message'}
-          </button>
-          <p className="text-center text-xs text-muted-foreground">
-            Trouble submitting? Email me at{" "}
+          <div className="flex flex-col md:flex-row items-center gap-4 pt-1">
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="group w-full md:w-auto px-8 py-3.5 bg-[#161616] text-white font-display font-medium rounded-full
+                hover:bg-black hover:scale-[1.02] active:scale-[0.98] transition-all duration-300
+                flex items-center justify-center gap-2 disabled:opacity-50 disabled:hover:scale-100"
+            >
+              <Send className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              {isSubmitting ? 'Sending...' : 'Send Message'}
+            </button>
             <a
               href="mailto:nikhilsangale121@gmail.com"
-              className="text-primary hover:underline"
+              className="group w-full md:w-auto px-8 py-3.5 border border-border text-foreground font-display font-medium rounded-full
+                hover:border-foreground/40 transition-all duration-300 flex items-center justify-center gap-2"
             >
-              nikhilsangale121@gmail.com
+              Email instead
+              <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
-            .
-          </p>
+          </div>
         </motion.form>
 
+        {/* Contact pills */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-16 flex flex-wrap items-center justify-center gap-8 text-muted-foreground text-sm"
+          className="mt-12 flex flex-wrap items-center justify-center gap-3 text-sm"
         >
-          <span className="flex items-center gap-2">
+          <span className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-card border border-border text-muted-foreground">
             <Mail className="w-4 h-4 text-primary" />
             nikhilsangale121@gmail.com
           </span>
-          <span className="flex items-center gap-2">
+          <span className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-card border border-border text-muted-foreground">
             <MapPin className="w-4 h-4 text-primary" />
             Pune, India
           </span>
@@ -153,5 +169,3 @@ const Contact = () => {
 }
 
 export default Contact
-
-
