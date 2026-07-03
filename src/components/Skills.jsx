@@ -4,10 +4,10 @@ import { useRef, useState } from "react"
 const skillsData = {
   'All': [
     'JavaScript', 'HTML5', 'CSS3', 'React', 'Next.js', 'Tailwind CSS',
-    'Node.js', 'Python', 'Flask', 'MongoDB', 'MySQL', 'Docker', 'Git', 'AWS'
+    'Node.js', 'Python', 'Flask', 'CICD', 'Git Actions', 'GitLab','Figma','Jira','MySQL', 'Docker', 'Git', 'AWS'
   ],
   'Frontend': ['JavaScript', 'HTML5', 'CSS3', 'React', 'Next.js', 'Tailwind CSS'],
-  'Backend': ['Node.js', 'Python', 'Flask', 'MongoDB', 'MySQL'],
+  'Backend': ['Go', 'Python', 'Flask','FastAPI', 'PostgreSQL', 'MySQL'],
   'DevOps': ['Docker', 'Git', 'Linux', 'AWS']
 }
 

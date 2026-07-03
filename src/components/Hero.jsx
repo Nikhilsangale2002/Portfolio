@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion"
 import { useRef, lazy, Suspense } from "react"
 import { ArrowDown, Download, ArrowUpRight } from "lucide-react"
 import Reveal from "./Reveal"
+import resumePdf from "../assets/Nikhil_Sangale_9075910683.pdf"
 
 const AuroraBackground = lazy(() => import("./AuroraBackground"))
 
@@ -15,8 +16,6 @@ const skills = [
 // Black hero in the Charn style: giant edge-to-edge wordmark, molten orange
 // aurora rising from the bottom, tiny mono meta labels.
 const Hero = () => {
-  const handleDownloadPdf = () => window.print()
-
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -105,13 +104,14 @@ const Hero = () => {
           >
             Get in Touch
           </a>
-          <button
-            onClick={handleDownloadPdf}
-            aria-label="Download as PDF"
+          <a
+            href={resumePdf}
+            download="Nikhil_Sangale_Resume.pdf"
+            aria-label="Download resume"
             className="group flex items-center justify-center w-12 h-12 border border-white/25 rounded-full text-white hover:border-white/60 transition-all duration-300"
           >
             <Download className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5" />
-          </button>
+          </a>
         </motion.div>
       </motion.div>
 

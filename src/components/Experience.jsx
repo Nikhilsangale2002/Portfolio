@@ -66,7 +66,7 @@ const experienceData = [
       'Gemini 2.5 Flash native-audio-dialog with server-side VAD, on-device AEC + barge-in, and auto-reconnect with exponential backoff across 6 companions.',
       'Full observability — Prometheus (8 metrics incl. TTFT histogram), Grafana, Sentry — plus Razorpay HMAC-SHA256 billing and async S3 recording storage.',
     ],
-    technologies: ['Go (Fiber)', 'FastAPI', 'Gemini Live', 'Flutter', 'AWS EC2','AWS SES', 'AWS S3', 'Cloudflare', 'Nginx', 'Docker', 'Redis', 'Prometheus', 'Grafana', 'Sentry', 'Razorpay'],
+    technologies: ['Go (Fiber)', 'FastAPI', 'Gemini Live', 'Flutter', 'AWS EC2','AWS SES', 'AWS S3', 'Cloudflare', 'Nginx','CICD', 'Git Actions', 'Docker', 'Redis', 'Prometheus', 'Grafana', 'Sentry', 'Razorpay'],
     app: {
       icon: carecallerIcon,
     },
@@ -91,7 +91,7 @@ const experienceData = [
       'Social features – invite friends & referral system',
       'Multi-authentication (Google, Apple, Email, Phone)',
     ],
-    technologies: ['Flask', 'React.js', 'Gemini Vision', 'MySQL', 'Redis', 'Docker', 'Nginx', 'AWS EC2','AWS S3' , 'AWS RDS' , 'Brevo', 'Chrome Extension'],
+    technologies: ['Flask', 'React.js', 'Gemini Vision', 'MySQL', 'Redis', 'CICD', 'Git Actions', 'Docker', 'Nginx', 'AWS EC2','AWS S3' , 'AWS RDS' , 'Brevo', 'Chrome Extension'],
     app: {
       icon: reclaimIcon,
       screens: [reclaimPhone1, reclaimPhone2, reclaimPhone3, reclaimPhone4, reclaimPhone5, reclaimPhone6],
@@ -130,7 +130,7 @@ const Experience = () => {
 
         <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-8 lg:gap-14">
           {/* Master: selectable role list */}
-          <div className="flex flex-col">
+          <div className="flex flex-col min-w-0">
             {experienceData.map((item, i) => {
               const isActive = i === active
               return (
@@ -173,7 +173,7 @@ const Experience = () => {
           </div>
 
           {/* Detail: animated panel for active role */}
-          <div className="relative min-h-[420px]">
+          <div className="relative min-h-[420px] min-w-0">
             <AnimatePresence mode="wait">
               <motion.article
                 key={active}
