@@ -1,16 +1,35 @@
 import { Github, Linkedin, Mail } from "lucide-react"
+import { usePostHog } from "posthog-js/react"
 
 const Footer = () => {
+  const posthog = usePostHog()
+
   return (
     <footer className="py-8 text-center border-t border-border">
       <div className="flex justify-center gap-6 mb-4">
-        <a href="https://github.com/nikhilsangale2002" className="text-muted-foreground hover:text-primary transition-colors" target="_blank" rel="noreferrer">
+        <a
+          href="https://github.com/nikhilsangale2002"
+          className="text-muted-foreground hover:text-primary transition-colors"
+          target="_blank"
+          rel="noreferrer"
+          onClick={() => posthog?.capture('social_click', { platform: 'github' })}
+        >
           <Github className="w-5 h-5" />
         </a>
-        <a href="https://www.linkedin.com/in/nikhil-sangale-053921292" className="text-muted-foreground hover:text-primary transition-colors" target="_blank" rel="noreferrer">
+        <a
+          href="https://www.linkedin.com/in/nikhil-sangale-053921292"
+          className="text-muted-foreground hover:text-primary transition-colors"
+          target="_blank"
+          rel="noreferrer"
+          onClick={() => posthog?.capture('social_click', { platform: 'linkedin' })}
+        >
           <Linkedin className="w-5 h-5" />
         </a>
-        <a href="mailto:nikhilsangale121@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
+        <a
+          href="mailto:nikhilsangale121@gmail.com"
+          className="text-muted-foreground hover:text-primary transition-colors"
+          onClick={() => posthog?.capture('social_click', { platform: 'email' })}
+        >
           <Mail className="w-5 h-5" />
         </a>
       </div>
@@ -18,7 +37,6 @@ const Footer = () => {
     </footer>
   )
 }
-
 
 export default Footer
 

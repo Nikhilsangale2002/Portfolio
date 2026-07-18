@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useRef, lazy, Suspense } from "react"
 import { ArrowDown, Download, ArrowUpRight } from "lucide-react"
+import { usePostHog } from "posthog-js/react"
 import Reveal from "./Reveal"
 import resumePdf from "../assets/Nikhil_Sangale_9075910683.pdf"
 
@@ -17,6 +18,7 @@ const skills = [
 // aurora rising from the bottom, tiny mono meta labels.
 const Hero = () => {
   const ref = useRef(null)
+  const posthog = usePostHog()
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -108,6 +110,7 @@ const Hero = () => {
             href={resumePdf}
             download="Nikhil_Sangale_Resume.pdf"
             aria-label="Download resume"
+            onClick={() => posthog?.capture('resume_download')}
             className="group flex items-center justify-center w-12 h-12 border border-white/25 rounded-full text-white hover:border-white/60 transition-all duration-300"
           >
             <Download className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5" />

@@ -1,5 +1,6 @@
 import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion"
 import { useState } from "react"
+import { usePostHog } from "posthog-js/react"
 import Reveal, { BlurIn } from "./Reveal"
 import { createPortal } from "react-dom"
 import { ArrowUpRight, Github, X, Brain, Code2, Briefcase, Search } from "lucide-react"
@@ -75,15 +76,17 @@ const projectsData = [
     title: 'Portfolio',
     subtitle: 'This Website',
     year: '2026',
-    description: 'Personal portfolio built with React + Vite — editorial type, scroll-linked motion, and a print-to-PDF hero.',
-    overview: 'This site — a personal portfolio focused on editorial typography, scroll-linked motion, and interaction details.',
+    description: 'Personal portfolio built with React + Vite — editorial type, WebGL shader hero, scroll-linked motion, and PostHog analytics.',
+    overview: 'This site — a personal portfolio focused on editorial typography, a custom WebGL shader background, buttery smooth scrolling, and interaction details, with PostHog wired in to track real visitor behavior.',
     highlights: [
       'Built with React + Vite and Tailwind CSS with a custom editorial design system.',
-      'Scroll-linked parallax and staggered reveal animations powered by Framer Motion.',
+      'Custom domain-warped GLSL shader background rendered via React Three Fiber for the hero section.',
+      'Lenis-powered smooth scrolling with scroll-linked parallax and staggered reveal animations via Framer Motion.',
       'Print-to-PDF hero export that preserves the dark theme.',
+      'PostHog analytics tracking visitors, pageviews, and key interactions (resume downloads, project clicks, social/contact clicks).',
     ],
-    tags: ['React', 'Vite', 'Framer Motion', 'Tailwind'],
-    link: 'https://nikhilsangale2002.github.io/Portfolio/',
+    tags: ['React', 'Vite', 'Three.js', 'Framer Motion', 'Tailwind', 'PostHog'],
+    link: 'https://github.com/Nikhilsangale2002/Portfolio',
     icon: 'Code2',
   },
 ]
@@ -93,6 +96,7 @@ const iconMap = { Brain, Code2, Briefcase, Search }
 const Projects = () => {
   const [hovered, setHovered] = useState(null)
   const [selected, setSelected] = useState(null)
+  const posthog = usePostHog()
   const mx = useMotionValue(0)
   const my = useMotionValue(0)
   const x = useSpring(mx, { stiffness: 250, damping: 28, mass: 0.4 })
@@ -296,6 +300,7 @@ const Projects = () => {
                 href={selected.link}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => posthog?.capture('project_link_click', { project: selected.title })}
                 className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-display font-medium rounded-lg hover:brightness-110 transition-all duration-300"
               >
                 <Github className="w-4 h-4" />

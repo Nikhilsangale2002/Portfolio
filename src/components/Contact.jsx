@@ -1,6 +1,7 @@
 import { motion, useInView } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
 import { Mail, MapPin, Send, ArrowUpRight } from "lucide-react"
+import { usePostHog } from "posthog-js/react"
 import Reveal, { BlurIn } from "./Reveal"
 
 const inputClasses =
@@ -13,6 +14,7 @@ const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [statusMessage, setStatusMessage] = useState({ type: '', text: '' })
+  const posthog = usePostHog()
 
   useEffect(() => {
     if (statusMessage.text) {
@@ -138,6 +140,7 @@ const Contact = () => {
             </button>
             <a
               href="mailto:nikhilsangale121@gmail.com"
+              onClick={() => posthog?.capture('contact_email_click')}
               className="group w-full md:w-auto px-8 py-3.5 border border-border text-foreground font-display font-medium rounded-full
                 hover:border-foreground/40 transition-all duration-300 flex items-center justify-center gap-2"
             >
